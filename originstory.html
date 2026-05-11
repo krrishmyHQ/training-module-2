@@ -1,0 +1,3129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myHQ — The Origin Story · Chapter 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   myHQ BRAND TOKENS — from Brand Guidelines
+   ═══════════════════════════════════════════ */
+:root {
+  /* Primary brand */
+  --blue:        #1E22AA;
+  --blue-light:  #676BE4;
+  --teal:        #96E6DC;
+  --mint:        #ADDFB3;
+
+  /* Artwork / tertiary */
+  --coral:       #FF7351;
+  --amber:       #FFB848;
+  --peach:       #F4BEAA;
+
+  /* Neutrals */
+  --dark:        #111827;
+  --body-text:   #424242;
+  --mid:         #9E9E9E;
+  --light:       #EEEEEE;
+  --white:       #FFFFFF;
+
+  /* Gradient */
+  --grad-start:  #1E22AA;
+  --grad-end:    #676BE4;
+
+  /* Surface */
+  --surface:     #0D1166;
+  --surface-2:   #111444;
+
+  /* Type */
+  --font: 'Poppins', system-ui, -apple-system, sans-serif;
+  --leading-prose: 1.7;
+
+  /* Borders & shadows — artistic: sharp, deliberate */
+  --border:       2.5px solid #1E22AA;
+  --border-teal:  2px solid #96E6DC;
+  --border-white: 1.5px solid rgba(255,255,255,0.14);
+  --sh:           6px 6px 0 #1E22AA;
+  --sh-teal:      6px 6px 0 #96E6DC;
+  --sh-blue:      6px 6px 0 #676BE4;
+  --sh-coral:     6px 6px 0 #FF7351;
+  --sh-amber:     6px 6px 0 #FFB848;
+  --sh-dark:      6px 6px 0 rgba(17,24,39,0.6);
+
+  --transition:  0.18s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+body {
+  font-family: var(--font);
+  font-feature-settings: 'cv11','ss01','ss03';
+  background: #0A0D4A;
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+/* ═══════════════════════════
+   NOISE TEXTURE OVERLAY
+   ═══════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ═══════════════════════════
+   TOPNAV
+   ═══════════════════════════ */
+.topnav {
+  background: var(--blue);
+  border-bottom: 2px solid var(--teal);
+  padding: 0 48px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.nav-brand {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.01em;
+}
+.nav-brand-mark {
+  width: 28px; height: 28px;
+  background: var(--teal);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.nav-brand-mark svg { width: 16px; height: 16px; fill: var(--blue); }
+.nav-tag {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(150,230,220,0.7);
+}
+.nav-pills { display: flex; gap: 6px; }
+.nav-pill {
+  font-size: 10px; font-weight: 700; padding: 6px 16px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  cursor: pointer; background: transparent;
+  transition: var(--transition); font-family: var(--font);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  text-decoration: none; color: rgba(255,255,255,0.65);
+}
+.nav-pill:hover, .nav-pill.active {
+  background: var(--teal);
+  color: var(--blue);
+  border-color: var(--teal);
+}
+.nav-pill.hub {
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+  border-color: rgba(255,255,255,0.15);
+}
+.nav-pill.hub:hover {
+  background: rgba(150,230,220,0.15);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+/* ═══════════════════════════
+   HERO SECTION
+   ═══════════════════════════ */
+.hero {
+  background: linear-gradient(135deg, #1E22AA 0%, #0D1166 60%, #080B40 100%);
+  border-bottom: 2px solid var(--teal);
+  padding: 72px 64px 60px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Geometric art backdrop */
+.hero-geo-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(150,230,220,0.12);
+}
+.hero-geo-ring:nth-child(1) { width: 600px; height: 600px; top: -200px; right: -100px; }
+.hero-geo-ring:nth-child(2) { width: 420px; height: 420px; top: -120px; right: -20px; }
+.hero-geo-ring:nth-child(3) { width: 240px; height: 240px; top: -40px; right: 60px; border-color: rgba(150,230,220,0.22); }
+
+.hero-accent-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal) 0%, transparent 60%);
+}
+.hero-flag {
+  position: absolute;
+  bottom: -40px; right: 80px;
+  opacity: 0.07;
+  transform: rotate(-12deg);
+}
+.hero-flag svg { width: 260px; height: 260px; fill: var(--teal); }
+
+.hero-inner { position: relative; z-index: 1; max-width: 820px; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 28px;
+}
+.hero-eyebrow-chip {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--blue);
+  background: var(--teal);
+  padding: 5px 14px;
+}
+.hero-eyebrow-line {
+  width: 40px; height: 2px;
+  background: rgba(150,230,220,0.4);
+}
+.hero-eyebrow-label {
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: rgba(150,230,220,0.6);
+}
+
+.hero-h1 {
+  font-size: clamp(2.6rem, 4.5vw + 0.8rem, 4.4rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  margin-bottom: 28px;
+}
+.hero-h1 .accent { color: var(--teal); font-weight: 800; }
+.hero-h1 .accent-coral { color: rgba(255,255,255,0.32); font-weight: 700; }
+
+.hero-sub {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.62);
+  line-height: var(--leading-prose);
+  max-width: 34rem;
+  margin-bottom: 16px;
+}
+
+.hero-vision {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 44px;
+  padding: 14px 20px;
+  border-left: 3px solid var(--teal);
+  background: rgba(150,230,220,0.06);
+}
+.hero-vision-label {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--teal); flex-shrink: 0;
+}
+.hero-vision-text {
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8);
+  font-style: italic; line-height: 1.5;
+}
+
+.hero-cta-row {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 52px;
+}
+.hero-cta-btn {
+  font-family: var(--font);
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 14px 32px;
+  background: var(--teal);
+  color: var(--blue);
+  border: none; cursor: pointer;
+  box-shadow: 5px 5px 0 rgba(150,230,220,0.25);
+  transition: var(--transition);
+  text-decoration: none; display: inline-block;
+}
+.hero-cta-btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 rgba(150,230,220,0.35); }
+.hero-cta-secondary {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+.hero-cta-secondary svg { width: 14px; height: 14px; stroke: currentColor; }
+.hero-cta-secondary:hover { color: var(--teal); }
+
+/* Divider line */
+.hero-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(150,230,220,0.3) 0%, transparent 70%);
+  margin-bottom: 36px;
+}
+
+/* Chapter progress strip */
+.hero-progress {
+  display: flex; align-items: center; gap: 0;
+  max-width: 480px;
+}
+.hero-prog-step {
+  flex: 1; padding: 10px 14px;
+  border: 1.5px solid rgba(150,230,220,0.15);
+  border-right: none;
+  font-size: 9px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.3);
+  position: relative;
+}
+.hero-prog-step:last-child { border-right: 1.5px solid rgba(150,230,220,0.15); }
+.hero-prog-step.active {
+  background: rgba(150,230,220,0.1);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.hero-prog-step.done { color: rgba(173,223,179,0.5); }
+.hero-prog-num {
+  display: block;
+  font-size: 16px; font-weight: 800;
+  color: inherit; letter-spacing: -0.02em;
+  margin-bottom: 2px;
+}
+
+/* ═══════════════════════════
+   MAIN LAYOUT — Single column, sequential
+   ═══════════════════════════ */
+.layout {
+  display: block;
+  min-height: 80vh;
+  position: relative; z-index: 1;
+}
+
+/* ═══════════════════════════
+   SECTION LABEL
+   ═══════════════════════════ */
+.section-label {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px;
+}
+.section-label-num {
+  font-size: 10px; font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.1em;
+}
+.section-label-text {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+}
+.section-label-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(150,230,220,0.3) 0%, transparent 100%);
+}
+
+/* ═══════════════════════════
+   TIMELINE PANE — 2-col with photo rail
+   ═══════════════════════════ */
+.timeline-pane {
+  padding: 52px 64px 72px;
+  background: linear-gradient(180deg, #0D1166 0%, #0A0D4A 100%);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.tl-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 48px;
+  align-items: start;
+}
+.tl-photo-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  align-self: stretch;
+}
+.tl-photo-rail-label {
+  position: sticky; top: 78px;
+  font-size: 9.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: rgba(150,230,220,0.5);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(150,230,220,0.15);
+  background: linear-gradient(180deg, #0D1166 0%, #0D1166 80%, transparent 100%);
+  padding-top: 8px;
+  margin-bottom: 4px;
+  z-index: 5;
+}
+.rail-photo {
+  border: 1.5px dashed rgba(150,230,220,0.2);
+  background: rgba(150,230,220,0.03);
+  position: relative;
+  flex: none;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.rail-photo:hover {
+  border-color: rgba(150,230,220,0.4);
+  background: rgba(150,230,220,0.06);
+}
+.rail-photo-era {
+  position: absolute; top: 10px; left: 12px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(13,17,102,0.85);
+  padding: 4px 9px;
+  border: 1px solid rgba(150,230,220,0.25);
+}
+.rail-photo-content {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; padding: 16px;
+  text-align: center; width: 100%;
+}
+.rail-photo-icon { opacity: 0.3; }
+.rail-photo-icon svg { width: 26px; height: 26px; stroke: var(--teal); fill: none; }
+.rail-photo-hint {
+  font-size: 10px; font-weight: 500;
+  color: rgba(150,230,220,0.45);
+  font-style: italic;
+  line-height: 1.45;
+}
+.rail-photo input[type=file] { display: none; }
+.rail-photo-upload-btn {
+  font-family: var(--font);
+  font-size: 8.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 5px 10px;
+  border: 1.5px solid rgba(150,230,220,0.3);
+  background: transparent;
+  color: rgba(150,230,220,0.6);
+  cursor: pointer;
+  margin-top: 4px;
+}
+.rail-photo-upload-btn:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: rgba(150,230,220,0.06);
+}
+.rail-photo img.uploaded {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.rail-photo-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  font-size: 9.5px; font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  padding: 6px 10px;
+  background: rgba(7,10,54,0.85);
+  border-top: 1px solid rgba(150,230,220,0.15);
+  letter-spacing: 0.02em;
+}
+
+/* DYK reveal inside each phase */
+.tl-dyk {
+  margin-top: 16px;
+  border: 1.5px solid rgba(255,184,72,0.25);
+  background: rgba(255,184,72,0.05);
+  border-left: 3px solid var(--amber);
+  overflow: hidden;
+}
+.tl-dyk-trigger {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  text-align: left;
+  transition: background 0.18s ease;
+}
+.tl-dyk-trigger:hover { background: rgba(255,184,72,0.06); }
+.tl-dyk-trigger-left {
+  display: flex; align-items: center; gap: 10px;
+  flex: 1;
+}
+.tl-dyk-icon {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--amber);
+  background: rgba(255,184,72,0.1);
+  color: var(--amber);
+}
+.tl-dyk-icon svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.4; }
+.tl-dyk-label {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber); display: block; margin-bottom: 2px;
+}
+.tl-dyk-teaser {
+  font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.45;
+}
+.tl-dyk-chevron {
+  font-size: 14px; color: var(--amber);
+  transition: transform 0.25s ease;
+  width: 14px; height: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.tl-dyk-chevron svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.tl-dyk.open .tl-dyk-chevron { transform: rotate(180deg); }
+.tl-dyk-body {
+  display: none;
+  padding: 0 16px 14px;
+  font-size: 12.5px; font-weight: 400;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  border-top: 1px dashed rgba(255,184,72,0.2);
+  margin-top: 0;
+}
+.tl-dyk.open .tl-dyk-body { display: block; padding-top: 14px; }
+.tl-dyk-body strong { color: var(--white); font-weight: 700; }
+
+/* Vertical clickable cards */
+.vertical-card.clickable {
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+}
+.vertical-card.clickable:hover {
+  background: rgba(150,230,220,0.1);
+  border-color: var(--teal);
+  transform: translate(-2px,-2px);
+  box-shadow: 4px 4px 0 rgba(150,230,220,0.2);
+}
+.vertical-card.clickable::after {
+  content: '';
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 16px; height: 16px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2396E6DC' stroke-width='2.5'><path d='M7 17L17 7M17 7H8M17 7V16'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  transition: opacity 0.18s, transform 0.18s;
+}
+.vertical-card.clickable:hover::after { opacity: 1; transform: translate(2px,-2px); }
+
+/* Vertical detail modal */
+.vertical-modal-box {
+  background: #0D1166;
+  width: 100%; max-width: 560px;
+  border: 1.5px solid rgba(150,230,220,0.25);
+  box-shadow: 12px 12px 0 rgba(150,230,220,0.1);
+}
+.v-modal-header {
+  padding: 28px 32px 20px;
+  border-bottom: 1.5px solid rgba(150,230,220,0.15);
+  position: relative;
+}
+.v-modal-header.am   { background: linear-gradient(135deg, rgba(255,115,81,0.18) 0%, rgba(122,24,0,0.4) 100%); border-bottom-color: var(--coral); }
+.v-modal-header.vo   { background: linear-gradient(135deg, rgba(173,223,179,0.18) 0%, rgba(13,59,23,0.4) 100%); border-bottom-color: var(--mint); }
+.v-modal-header.od   { background: linear-gradient(135deg, rgba(150,230,220,0.18) 0%, rgba(14,77,110,0.4) 100%); border-bottom-color: var(--teal); }
+.v-modal-eyebrow {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 8px;
+}
+.v-modal-header.am .v-modal-eyebrow { color: var(--coral); }
+.v-modal-header.vo .v-modal-eyebrow { color: var(--mint); }
+.v-modal-title {
+  font-size: 22px; font-weight: 800;
+  color: var(--white); letter-spacing: -0.025em;
+  line-height: 1.15; margin-bottom: 6px;
+}
+.v-modal-tagline {
+  font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,0.6); line-height: 1.5;
+}
+.v-modal-body {
+  padding: 24px 32px 0;
+  max-height: 60vh; overflow-y: auto;
+}
+.v-modal-section {
+  margin-bottom: 18px;
+}
+.v-modal-section-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.v-modal-section-label::before {
+  content:''; display: inline-block;
+  width: 14px; height: 2px; background: currentColor;
+}
+.v-modal-section p {
+  font-size: 13px; color: rgba(255,255,255,0.7);
+  line-height: 1.7; margin-bottom: 8px;
+}
+.v-modal-section p:last-child { margin-bottom: 0; }
+.v-modal-section p strong { color: var(--white); font-weight: 700; }
+.v-modal-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.v-modal-stat {
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(150,230,220,0.15);
+}
+.v-modal-stat-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(150,230,220,0.5); margin-bottom: 4px;
+}
+.v-modal-stat-value {
+  font-size: 13px; font-weight: 700;
+  color: var(--white); line-height: 1.3;
+}
+.v-modal-footer {
+  padding: 16px 32px;
+  border-top: 1.5px dashed rgba(150,230,220,0.2);
+  background: rgba(150,230,220,0.04);
+  font-size: 11px; font-weight: 500;
+  color: rgba(150,230,220,0.65);
+  display: flex; align-items: center; gap: 10px;
+  letter-spacing: 0.01em;
+}
+.v-modal-footer-icon {
+  width: 18px; height: 18px;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  border: 1.5px solid var(--teal);
+  color: var(--teal);
+}
+.v-modal-footer-icon svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+/* Funding callout — replace emoji with inline icon */
+.funding-callout-icon {
+  width: 32px; height: 32px;
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--blue-light);
+  background: rgba(103,107,228,0.12);
+  color: var(--blue-light);
+}
+.funding-callout-icon svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+.funding-callout.intl .funding-callout-icon {
+  border-color: var(--teal);
+  background: rgba(150,230,220,0.1);
+  color: var(--teal);
+}
+
+/* People — interactive flip on click */
+.person-card {
+  perspective: 1200px;
+  background: transparent;
+  border: none !important;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+  min-height: 280px;
+}
+.person-card:hover { transform: translate(-3px,-3px); }
+.person-inner {
+  position: relative;
+  width: 100%; min-height: 280px;
+  transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.person-card.flipped .person-inner { transform: rotateY(180deg); }
+.person-face, .person-rear {
+  position: absolute; inset: 0;
+  width: 100%; min-height: 280px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 1.5px solid rgba(150,230,220,0.18);
+  background: rgba(255,255,255,0.02);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.person-card:hover .person-face {
+  background: rgba(150,230,220,0.04);
+  border-color: rgba(150,230,220,0.4);
+  box-shadow: var(--sh-teal);
+}
+.person-rear {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, rgba(30,34,170,0.5) 0%, rgba(13,17,102,0.85) 100%);
+  border-left: 3px solid var(--teal);
+  padding: 24px 22px 20px;
+  justify-content: space-between;
+}
+.person-card.teal .person-rear   { border-left-color: var(--teal); }
+.person-card.coral .person-rear  { border-left-color: var(--coral); background: linear-gradient(135deg, rgba(255,115,81,0.15) 0%, rgba(122,24,0,0.55) 100%); }
+.person-card.mint .person-rear   { border-left-color: var(--mint); background: linear-gradient(135deg, rgba(173,223,179,0.15) 0%, rgba(13,59,23,0.55) 100%); }
+.person-card.growth .person-rear { border-left-color: var(--blue-light); background: linear-gradient(135deg, rgba(103,107,228,0.18) 0%, rgba(30,34,170,0.55) 100%); }
+.person-card.amber .person-rear  { border-left-color: var(--amber); background: linear-gradient(135deg, rgba(255,184,72,0.15) 0%, rgba(122,72,0,0.55) 100%); }
+
+.person-rear-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.person-card.coral .person-rear-label { color: var(--coral); }
+.person-card.mint .person-rear-label { color: var(--mint); }
+.person-card.growth .person-rear-label { color: var(--blue-light); }
+.person-card.amber .person-rear-label { color: var(--amber); }
+.person-rear-label::before {
+  content:''; display: inline-block;
+  width: 14px; height: 2px; background: currentColor;
+}
+.person-rear-quote {
+  font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 14px;
+  flex: 1;
+  position: relative;
+  padding-left: 14px;
+}
+.person-rear-quote::before {
+  content: '"';
+  position: absolute;
+  top: -10px; left: -2px;
+  font-size: 36px; font-weight: 800;
+  color: var(--teal);
+  line-height: 1;
+  font-style: normal;
+}
+.person-card.coral .person-rear-quote::before { color: var(--coral); }
+.person-card.mint .person-rear-quote::before { color: var(--mint); }
+.person-card.growth .person-rear-quote::before { color: var(--blue-light); }
+.person-card.amber .person-rear-quote::before { color: var(--amber); }
+.person-rear-actions {
+  display: flex; gap: 8px; align-items: center;
+  flex-wrap: wrap;
+}
+.person-rear-btn {
+  font-family: var(--font);
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 14px;
+  border: 1.5px solid var(--teal);
+  background: transparent;
+  color: var(--teal);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.person-rear-btn:hover { background: var(--teal); color: var(--blue); }
+.person-card.coral  .person-rear-btn { border-color: var(--coral); color: var(--coral); }
+.person-card.coral  .person-rear-btn:hover { background: var(--coral); color: var(--white); }
+.person-card.mint   .person-rear-btn { border-color: var(--mint); color: var(--mint); }
+.person-card.mint   .person-rear-btn:hover { background: var(--mint); color: var(--blue); }
+.person-card.growth .person-rear-btn { border-color: var(--blue-light); color: var(--blue-light); }
+.person-card.growth .person-rear-btn:hover { background: var(--blue-light); color: var(--white); }
+.person-card.amber  .person-rear-btn { border-color: var(--amber); color: var(--amber); }
+.person-card.amber  .person-rear-btn:hover { background: var(--amber); color: var(--blue); }
+
+.person-rear-flip-back {
+  font-family: var(--font);
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 12px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: all 0.18s ease;
+}
+.person-rear-flip-back:hover { border-color: rgba(255,255,255,0.4); color: rgba(255,255,255,0.85); }
+
+/* Person face flip hint */
+.person-flip-hint {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 22px; height: 22px;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.25);
+  color: rgba(255,255,255,0.7);
+  z-index: 5;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+.person-flip-hint svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+.person-card:hover .person-flip-hint {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: rgba(150,230,220,0.15);
+}
+
+/* Responsive — collapse photo rail under timeline on mobile */
+@media (max-width: 1080px) {
+  .tl-grid { grid-template-columns: 1fr; }
+}
+.tl-intro {
+  font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 36px; line-height: 1.7;
+  letter-spacing: 0.02em; text-transform: uppercase;
+}
+
+/* Track */
+.tl-track { position: relative; padding-left: 56px; }
+.tl-spine-wrap {
+  position: absolute;
+  left: 22px; top: 10px; bottom: 10px;
+  width: 2px;
+  background: rgba(150,230,220,0.1);
+}
+.tl-spine-fill {
+  position: absolute; left: 0; top: 0; width: 100%;
+  background: linear-gradient(180deg, var(--teal) 0%, var(--blue-light) 100%);
+  transition: height 0.5s ease;
+}
+
+/* Timeline items */
+.tl-item { position: relative; margin-bottom: 14px; cursor: pointer; }
+.tl-dot-wrap { position: absolute; left: -44px; top: 20px; z-index: 2; }
+.tl-dot {
+  width: 22px; height: 22px;
+  background: #0A0D4A;
+  border: 2px solid rgba(150,230,220,0.2);
+  transition: all 0.2s ease;
+}
+.tl-item:hover .tl-dot {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 4px rgba(150,230,220,0.1);
+}
+.tl-item.active .tl-dot {
+  background: var(--teal);
+  border-color: var(--teal);
+  box-shadow: 4px 4px 0 rgba(150,230,220,0.25);
+}
+.tl-item.milestone .tl-dot { border-color: rgba(173,223,179,0.35); }
+.tl-item.milestone.active .tl-dot {
+  background: var(--mint);
+  border-color: var(--mint);
+  box-shadow: 4px 4px 0 rgba(173,223,179,0.25);
+}
+.tl-item.covid .tl-dot { border-color: rgba(255,255,255,0.15); }
+.tl-item.covid.active .tl-dot {
+  background: var(--white);
+  border-color: var(--white);
+  box-shadow: 4px 4px 0 rgba(255,255,255,0.15);
+}
+
+/* Cards */
+.tl-card {
+  border: 1.5px solid rgba(150,230,220,0.1);
+  padding: 20px 24px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(4px);
+  transition: all 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+.tl-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: transparent; transition: background 0.2s;
+}
+.tl-item:hover .tl-card {
+  background: rgba(150,230,220,0.05);
+  border-color: rgba(150,230,220,0.22);
+  transform: translate(-2px,-2px);
+  box-shadow: var(--sh-teal);
+}
+.tl-item.active .tl-card {
+  background: rgba(150,230,220,0.08);
+  border-color: var(--teal);
+  box-shadow: var(--sh-teal);
+  transform: translate(-2px,-2px);
+}
+.tl-item.active .tl-card::before { background: var(--teal); }
+.tl-item.milestone.active .tl-card {
+  background: rgba(173,223,179,0.07);
+  border-color: var(--mint);
+  box-shadow: var(--sh-teal);
+}
+.tl-item.milestone.active .tl-card::before { background: var(--mint); }
+.tl-item.covid.active .tl-card {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.25);
+  box-shadow: 6px 6px 0 rgba(255,255,255,0.12);
+}
+.tl-item.covid.active .tl-card::before { background: var(--white); }
+
+/* Era label */
+.tl-era {
+  font-size: 10px; font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.tl-item.milestone .tl-era { color: var(--mint); }
+.tl-item.covid .tl-era { color: rgba(255,255,255,0.4); }
+.era-dot { width: 5px; height: 5px; background: var(--teal); flex-shrink: 0; }
+.tl-item.milestone .era-dot { background: var(--mint); }
+.tl-item.covid .era-dot { background: rgba(255,255,255,0.3); }
+
+/* Headline */
+.tl-event {
+  font-size: 15px; font-weight: 700;
+  color: var(--white); line-height: 1.38; margin-bottom: 0;
+}
+
+/* Expanded detail */
+.tl-detail {
+  display: none;
+  font-size: 13px; color: rgba(255,255,255,0.58);
+  line-height: var(--leading-prose);
+  margin-top: 16px; font-weight: 400;
+}
+.tl-item.active .tl-detail { display: block; }
+.tl-detail strong { color: rgba(255,255,255,0.9); font-weight: 700; }
+.tl-detail p { margin-bottom: 10px; }
+.tl-detail p:last-of-type { margin-bottom: 0; }
+
+/* ── Content Slot: Text ── */
+.content-slot-text {
+  margin-top: 14px;
+  padding: 16px 18px;
+  border: 1.5px dashed rgba(150,230,220,0.2);
+  background: rgba(150,230,220,0.03);
+  font-size: 12px; color: rgba(150,230,220,0.4);
+  font-style: italic; line-height: 1.65; font-weight: 500;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.content-slot-text::before {
+  content: '✎';
+  font-size: 14px; flex-shrink: 0;
+  color: rgba(150,230,220,0.3);
+}
+.content-slot-text .slot-label {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(150,230,220,0.5); display: block; margin-bottom: 4px;
+}
+.content-slot-text .slot-hint { color: rgba(150,230,220,0.35); }
+
+/* ── Content Slot: Image ── */
+.tl-photo-slot {
+  margin-top: 14px;
+  border: 1.5px dashed rgba(150,230,220,0.18);
+  background: rgba(150,230,220,0.03);
+  overflow: hidden; position: relative;
+  min-height: 90px;
+  display: flex; align-items: center; justify-content: center;
+}
+.upload-overlay {
+  padding: 22px 20px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; text-align: center; width: 100%;
+}
+.upload-icon { opacity: 0.2; }
+.upload-icon svg { width: 28px; height: 28px; stroke: var(--teal); }
+.upload-label {
+  font-size: 11px; font-weight: 700;
+  color: rgba(150,230,220,0.5); text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.upload-hint {
+  font-size: 10px; color: rgba(150,230,220,0.25);
+  font-style: italic;
+}
+.upload-btn {
+  font-family: var(--font);
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 7px 16px;
+  border: 1.5px solid rgba(150,230,220,0.25);
+  background: transparent; cursor: pointer;
+  color: rgba(150,230,220,0.5);
+  display: flex; align-items: center; gap: 6px;
+  transition: var(--transition); margin-top: 4px;
+}
+.upload-btn svg { width: 12px; height: 12px; stroke: currentColor; }
+.upload-btn:hover { background: rgba(150,230,220,0.08); border-color: var(--teal); color: var(--teal); }
+.photo-caption {
+  font-size: 10px; color: rgba(150,230,220,0.3);
+  padding: 7px 14px; border-top: 1px solid rgba(150,230,220,0.1);
+  background: rgba(0,0,0,0.1); font-style: italic;
+}
+
+/* ── Funding Callout ── */
+.funding-callout {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: rgba(30,34,170,0.35);
+  border: 1.5px solid rgba(103,107,228,0.4);
+  border-left: 3px solid var(--blue-light);
+  display: flex; align-items: center; gap: 12px;
+}
+.funding-callout-icon { font-size: 18px; flex-shrink: 0; }
+.funding-callout-year {
+  font-size: 10px; font-weight: 700;
+  color: var(--blue-light); text-transform: uppercase;
+  letter-spacing: 0.1em; display: block; margin-bottom: 3px;
+}
+.funding-callout-names {
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75);
+}
+
+/* ── Product Vertical Cards ── */
+.verticals-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-top: 14px;
+}
+.vertical-card {
+  padding: 12px 14px;
+  border: 1.5px solid rgba(150,230,220,0.12);
+  background: rgba(150,230,220,0.04);
+}
+.vertical-card-label {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--teal); margin-bottom: 4px;
+}
+.vertical-card-arrow {
+  font-size: 10px; color: rgba(255,255,255,0.25);
+  margin: 2px 0;
+}
+.vertical-card-name {
+  font-size: 12px; font-weight: 700; color: var(--white);
+}
+.vertical-card-desc {
+  font-size: 10px; color: rgba(255,255,255,0.4);
+  margin-top: 3px; line-height: 1.5;
+}
+
+/* ── Badges ── */
+.tl-badge {
+  display: inline-block;
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 4px 11px;
+  border: 1.5px solid transparent;
+  margin-top: 14px; margin-right: 6px;
+}
+.badge-teal  { background: rgba(150,230,220,0.12); color: var(--teal); border-color: rgba(150,230,220,0.3); }
+.badge-blue  { background: rgba(103,107,228,0.2); color: var(--blue-light); border-color: rgba(103,107,228,0.4); }
+.badge-mint  { background: rgba(173,223,179,0.12); color: var(--mint); border-color: rgba(173,223,179,0.3); }
+.badge-coral { background: rgba(255,115,81,0.15); color: var(--coral); border-color: rgba(255,115,81,0.3); }
+.badge-amber { background: rgba(255,184,72,0.15); color: var(--amber); border-color: rgba(255,184,72,0.3); }
+.badge-white { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.15); }
+
+/* ── Stats row ── */
+.tl-stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border: 1.5px solid rgba(150,230,220,0.15);
+  box-shadow: var(--sh-teal);
+  background: rgba(150,230,220,0.04);
+  margin-top: 36px; overflow: hidden;
+}
+.stat-card {
+  padding: 22px 18px;
+  border-right: 1px solid rgba(150,230,220,0.1);
+  text-align: left;
+}
+.stat-card:last-child { border-right: none; }
+.stat-card .slot-label {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(150,230,220,0.35); display: block; margin-bottom: 6px;
+}
+.stat-num {
+  font-size: 28px; font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--teal); letter-spacing: -0.04em;
+  line-height: 1; margin-bottom: 4px;
+}
+.stat-num.placeholder {
+  color: rgba(150,230,220,0.2);
+  font-size: 18px; letter-spacing: 0;
+  font-style: italic; font-weight: 500;
+}
+.stat-lbl {
+  font-size: 10px; font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* ═══════════════════════════
+   PEOPLE SECTION (after timeline)
+   ═══════════════════════════ */
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+.people-section {
+  background: #070A36;
+  border-top: 2px solid rgba(150,230,220,0.12);
+  border-bottom: 2px solid rgba(150,230,220,0.12);
+  padding: 64px 64px 72px;
+  position: relative;
+  z-index: 1;
+}
+.section-wrap { max-width: 1200px; margin: 0 auto; }
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.section-header-left { max-width: 640px; }
+.section-eyebrow {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--teal); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-eyebrow::before {
+  content:''; display:inline-block;
+  width: 24px; height: 2px; background: var(--teal);
+}
+.section-h2 {
+  font-size: clamp(1.8rem, 2.6vw + 0.4rem, 2.6rem);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: 14px;
+}
+.section-h2 .accent { color: var(--teal); font-weight: 800; }
+.section-sub {
+  font-size: 13px; font-weight: 400;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+  max-width: 560px;
+}
+.section-counter {
+  font-size: 11px; font-weight: 700;
+  color: rgba(150,230,220,0.5);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1.5px solid rgba(150,230,220,0.2);
+  padding: 8px 16px;
+  white-space: nowrap;
+}
+
+.team-group-label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: rgba(150,230,220,0.45);
+  margin: 28px 0 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.team-group-label::after {
+  content:''; flex:1; height:1px;
+  background: linear-gradient(90deg, rgba(150,230,220,0.2) 0%, transparent 100%);
+}
+.team-group-label:first-of-type { margin-top: 0; }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* People cards (rebuilt for grid) */
+.person-card {
+  border: 1.5px solid rgba(150,230,220,0.15);
+  background: rgba(255,255,255,0.02);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.person-card:hover {
+  background: rgba(150,230,220,0.04);
+  border-color: rgba(150,230,220,0.35);
+  transform: translate(-3px,-3px);
+  box-shadow: var(--sh-teal);
+}
+.person-banner {
+  position: relative;
+  height: 90px;
+  background: radial-gradient(ellipse at 50% 130%, rgba(150,230,220,0.07) 0%, transparent 68%);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(150,230,220,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.person-card.teal .person-banner   { background: radial-gradient(ellipse at 50% 130%, rgba(150,230,220,0.10) 0%, transparent 68%); }
+.person-card.coral .person-banner  { background: radial-gradient(ellipse at 50% 130%, rgba(255,115,81,0.10) 0%, transparent 68%); }
+.person-card.mint .person-banner   { background: radial-gradient(ellipse at 50% 130%, rgba(173,223,179,0.10) 0%, transparent 68%); }
+.person-card.growth .person-banner { background: radial-gradient(ellipse at 50% 130%, rgba(103,107,228,0.10) 0%, transparent 68%); }
+.person-card.amber .person-banner  { background: radial-gradient(ellipse at 50% 130%, rgba(255,184,72,0.10) 0%, transparent 68%); }
+.person-banner-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+  background-size: 18px 18px;
+  pointer-events: none;
+}
+.person-pulse {
+  position: absolute; top: 10px; right: 12px;
+  font-size: 8.5px; font-weight: 700; color: rgba(255,255,255,0.45);
+  display: flex; align-items: center; gap: 5px;
+  letter-spacing: 0.05em;
+}
+.person-pulse-dot {
+  width: 5px; height: 5px;
+  background: var(--teal); border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+.person-initials-block {
+  position: relative;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(10,13,74,0.9);
+  border: 2px solid var(--teal);
+  box-shadow: 0 0 0 3px rgba(150,230,220,0.10), 0 4px 16px rgba(0,0,0,0.4);
+  font-size: 16px; font-weight: 900;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: 0.5px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+}
+.person-card.coral .person-initials-block  { border-color: var(--coral);      box-shadow: 0 0 0 3px rgba(255,115,81,0.12), 0 4px 16px rgba(0,0,0,0.4); }
+.person-card.mint .person-initials-block   { border-color: var(--mint);       box-shadow: 0 0 0 3px rgba(173,223,179,0.12), 0 4px 16px rgba(0,0,0,0.4); }
+.person-card.growth .person-initials-block { border-color: var(--blue-light); box-shadow: 0 0 0 3px rgba(103,107,228,0.12), 0 4px 16px rgba(0,0,0,0.4); }
+.person-card.amber .person-initials-block  { border-color: var(--amber);      box-shadow: 0 0 0 3px rgba(255,184,72,0.12), 0 4px 16px rgba(0,0,0,0.4); }
+.person-card:hover .person-initials-block  { box-shadow: 0 0 0 4px rgba(150,230,220,0.20), 0 4px 20px rgba(0,0,0,0.5); }
+.person-body {
+  padding: 14px 18px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.person-name {
+  font-size: 14px; font-weight: 800;
+  color: var(--white); margin-bottom: 4px;
+  letter-spacing: -0.01em;
+  width: 100%;
+}
+.person-role-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(150,230,220,0.06);
+  border: 1px solid rgba(150,230,220,0.22);
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+.person-card.coral .person-role-badge  { color: var(--coral);      background: rgba(255,115,81,0.06);   border-color: rgba(255,115,81,0.22); }
+.person-card.mint .person-role-badge   { color: var(--mint);       background: rgba(173,223,179,0.06);  border-color: rgba(173,223,179,0.22); }
+.person-card.growth .person-role-badge { color: var(--blue-light); background: rgba(103,107,228,0.06);  border-color: rgba(103,107,228,0.22); }
+.person-card.amber .person-role-badge  { color: var(--amber);      background: rgba(255,184,72,0.06);   border-color: rgba(255,184,72,0.22); }
+.person-tagline {
+  font-size: 11px; font-weight: 400;
+  color: rgba(255,255,255,0.42);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  flex: 1;
+  width: 100%;
+}
+.person-chips {
+  display: flex; gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.p-chip {
+  font-size: 8.5px; font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.42);
+}
+.p-chip.accent {
+  background: rgba(150,230,220,0.1);
+  border-color: rgba(150,230,220,0.25);
+  color: var(--teal);
+}
+.person-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 9.5px; font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none;
+  transition: gap 0.15s;
+}
+.person-card:hover .person-cta { gap: 10px; }
+.person-cta svg {
+  width: 11px; height: 11px;
+  stroke: currentColor; fill: none;
+}
+
+/* ═══════════════════════════
+   ORG STRUCTURE SECTION
+   ═══════════════════════════ */
+.org-section {
+  background: linear-gradient(180deg, #0A0D4A 0%, #070A36 100%);
+  border-bottom: 2px solid rgba(150,230,220,0.12);
+  padding: 64px 64px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.org-pyramid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.org-tier {
+  border: 1.5px solid rgba(150,230,220,0.15);
+  background: rgba(255,255,255,0.02);
+  position: relative;
+  transition: all 0.2s ease;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  overflow: hidden;
+}
+.org-tier:hover {
+  border-color: rgba(150,230,220,0.4);
+  transform: translate(-2px,-2px);
+  box-shadow: var(--sh-teal);
+}
+
+.org-tier-1 { width: 100%; }
+.org-tier-2 { width: 92%; align-self: center; }
+.org-tier-3 { width: 84%; align-self: center; }
+.org-tier-4 { width: 76%; align-self: center; }
+
+.org-tier-left {
+  padding: 22px 24px;
+  border-right: 1.5px solid rgba(150,230,220,0.12);
+  background: linear-gradient(135deg, rgba(30,34,170,0.4) 0%, rgba(13,17,102,0.2) 100%);
+  position: relative;
+}
+.org-tier-1 .org-tier-left { background: linear-gradient(135deg, rgba(255,184,72,0.2) 0%, rgba(255,115,81,0.1) 100%); }
+.org-tier-2 .org-tier-left { background: linear-gradient(135deg, rgba(150,230,220,0.18) 0%, rgba(30,34,170,0.15) 100%); }
+.org-tier-3 .org-tier-left { background: linear-gradient(135deg, rgba(103,107,228,0.25) 0%, rgba(30,34,170,0.1) 100%); }
+.org-tier-4 .org-tier-left { background: linear-gradient(135deg, rgba(173,223,179,0.18) 0%, rgba(30,34,170,0.12) 100%); }
+
+.org-tier-num {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(150,230,220,0.6);
+  margin-bottom: 6px;
+}
+.org-tier-1 .org-tier-num { color: var(--amber); }
+.org-tier-3 .org-tier-num { color: var(--blue-light); }
+.org-tier-4 .org-tier-num { color: var(--mint); }
+
+.org-tier-name {
+  font-size: 18px; font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.org-tier-designations {
+  font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.55;
+}
+
+.org-tier-right {
+  padding: 22px 26px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.org-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.org-fact-label {
+  font-size: 8.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: rgba(150,230,220,0.4);
+}
+.org-fact-value {
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.5;
+}
+.org-fact-value strong {
+  color: var(--teal);
+  font-weight: 800;
+}
+.org-tier-1 .org-fact-value strong { color: var(--amber); }
+.org-tier-3 .org-fact-value strong { color: var(--blue-light); }
+.org-tier-4 .org-fact-value strong { color: var(--mint); }
+
+.org-legend {
+  margin-top: 28px;
+  padding: 16px 20px;
+  border: 1.5px dashed rgba(150,230,220,0.2);
+  background: rgba(150,230,220,0.04);
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+  font-weight: 500;
+}
+.org-legend strong {
+  color: var(--teal);
+  font-weight: 700;
+}
+
+/* ═══════════════════════════
+   DID YOU KNOW EASTER EGGS
+   ═══════════════════════════ */
+.dyk-section {
+  background: #070A36;
+  border-top: 2px solid rgba(150,230,220,0.12);
+  border-bottom: 2px solid rgba(150,230,220,0.12);
+  padding: 64px 64px 80px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Decorative floating dots */
+.dyk-section::before {
+  content: '';
+  position: absolute;
+  top: 40px; right: 80px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(255,184,72,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.dyk-section::after {
+  content: '';
+  position: absolute;
+  bottom: 40px; left: 60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(150,230,220,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.dyk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Each card is a "card flip" - face shows teaser, back shows reveal */
+.dyk-card {
+  position: relative;
+  min-height: 200px;
+  cursor: pointer;
+  perspective: 1200px;
+  background: transparent;
+}
+.dyk-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  min-height: 200px;
+  transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.dyk-card.flipped .dyk-inner {
+  transform: rotateY(180deg);
+}
+.dyk-face, .dyk-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 20px;
+  border: 1.5px solid rgba(150,230,220,0.18);
+}
+.dyk-face {
+  background: linear-gradient(135deg, rgba(30,34,170,0.5) 0%, rgba(13,17,102,0.7) 100%);
+  transition: all 0.2s ease;
+}
+.dyk-card:hover .dyk-face {
+  border-color: rgba(150,230,220,0.4);
+  background: linear-gradient(135deg, rgba(30,34,170,0.65) 0%, rgba(13,17,102,0.85) 100%);
+}
+.dyk-back {
+  background: linear-gradient(135deg, rgba(150,230,220,0.12) 0%, rgba(30,34,170,0.4) 100%);
+  border-color: var(--teal);
+  border-left: 3px solid var(--teal);
+  transform: rotateY(180deg);
+  box-shadow: inset 0 0 60px rgba(150,230,220,0.05);
+}
+
+/* Card category color variants */
+.dyk-card.amber .dyk-back { border-color: var(--amber); border-left-color: var(--amber); background: linear-gradient(135deg, rgba(255,184,72,0.15) 0%, rgba(122,72,0,0.4) 100%); }
+.dyk-card.coral .dyk-back { border-color: var(--coral); border-left-color: var(--coral); background: linear-gradient(135deg, rgba(255,115,81,0.15) 0%, rgba(122,24,0,0.4) 100%); }
+.dyk-card.mint  .dyk-back { border-color: var(--mint);  border-left-color: var(--mint);  background: linear-gradient(135deg, rgba(173,223,179,0.15) 0%, rgba(13,59,23,0.4) 100%); }
+.dyk-card.blue  .dyk-back { border-color: var(--blue-light); border-left-color: var(--blue-light); background: linear-gradient(135deg, rgba(103,107,228,0.18) 0%, rgba(30,34,170,0.45) 100%); }
+
+.dyk-icon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.dyk-icon {
+  font-size: 28px;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.dyk-card:hover .dyk-icon { transform: rotate(-8deg) scale(1.1); }
+
+.dyk-tag {
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(150,230,220,0.1);
+  border: 1px solid rgba(150,230,220,0.25);
+  padding: 4px 10px;
+}
+.dyk-card.amber .dyk-tag { color: var(--amber); background: rgba(255,184,72,0.1); border-color: rgba(255,184,72,0.3); }
+.dyk-card.coral .dyk-tag { color: var(--coral); background: rgba(255,115,81,0.1); border-color: rgba(255,115,81,0.3); }
+.dyk-card.mint  .dyk-tag { color: var(--mint);  background: rgba(173,223,179,0.1); border-color: rgba(173,223,179,0.3); }
+.dyk-card.blue  .dyk-tag { color: var(--blue-light); background: rgba(103,107,228,0.15); border-color: rgba(103,107,228,0.35); }
+
+.dyk-question {
+  font-size: 15px; font-weight: 700;
+  color: var(--white);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.dyk-prompt {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(150,230,220,0.7);
+  display: flex; align-items: center; gap: 8px;
+  margin-top: auto;
+}
+.dyk-prompt svg {
+  width: 14px; height: 14px; stroke: currentColor; fill: none;
+  transition: transform 0.3s ease;
+}
+.dyk-card:hover .dyk-prompt svg { transform: translateX(3px); }
+
+.dyk-back-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.dyk-card.amber .dyk-back-label { color: var(--amber); }
+.dyk-card.coral .dyk-back-label { color: var(--coral); }
+.dyk-card.mint  .dyk-back-label { color: var(--mint); }
+.dyk-card.blue  .dyk-back-label { color: var(--blue-light); }
+
+.dyk-back-label::before {
+  content: '✦'; font-size: 12px;
+}
+
+.dyk-answer {
+  font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  flex: 1;
+}
+.dyk-answer strong {
+  color: var(--white);
+  font-weight: 800;
+}
+
+.dyk-flip-back {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  display: inline-flex; align-items: center; gap: 6px;
+  cursor: pointer;
+  margin-top: auto;
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  padding: 8px 14px;
+  font-family: var(--font);
+  align-self: flex-start;
+  transition: all 0.18s ease;
+}
+.dyk-flip-back:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+/* DYK reveal counter at top */
+.dyk-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(150,230,220,0.08);
+  border: 1.5px solid rgba(150,230,220,0.25);
+  padding: 8px 16px;
+}
+.dyk-counter-num {
+  font-size: 18px; font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+/* Chapter close wrapper (standalone now) */
+.chapter-close-wrap {
+  background: #070A36;
+  border-top: 2px solid rgba(150,230,220,0.12);
+  padding: 60px 64px;
+  position: relative;
+  z-index: 1;
+}
+
+/* End of chapter close (replaces quiz completion gate) */
+.chapter-close {
+  background: linear-gradient(135deg, rgba(30,34,170,0.6) 0%, rgba(13,17,102,0.85) 100%);
+  border: 1.5px solid rgba(150,230,220,0.25);
+  box-shadow: var(--sh-teal);
+  padding: 36px 40px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+.chapter-close-text { max-width: 560px; }
+.chapter-close-eyebrow {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 8px;
+}
+.chapter-close-title {
+  font-size: 22px; font-weight: 900;
+  color: var(--white); letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.chapter-close-sub {
+  font-size: 13px; color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+.chapter-close-btn {
+  font-family: var(--font);
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 14px 28px;
+  background: var(--teal); color: var(--blue);
+  border: none; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  box-shadow: 5px 5px 0 rgba(150,230,220,0.25);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.chapter-close-btn:hover {
+  transform: translate(-2px,-2px);
+  box-shadow: 7px 7px 0 rgba(150,230,220,0.35);
+}
+
+/* Responsive */
+@media (max-width: 880px) {
+  .timeline-pane { padding: 36px 24px 56px; }
+  .people-section, .org-section, .dyk-section { padding: 48px 24px 56px; }
+  .org-tier { grid-template-columns: 1fr; }
+  .org-tier-left { border-right: none; border-bottom: 1.5px solid rgba(150,230,220,0.12); }
+  .org-tier-2, .org-tier-3, .org-tier-4 { width: 100%; }
+}
+
+/* ═══════════════════════════
+   TEAM MODAL
+   ═══════════════════════════ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(7,10,54,0.88);
+  backdrop-filter: blur(6px);
+  z-index: 500; overflow-y: auto;
+  padding: 40px 20px;
+}
+.modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+.modal-box {
+  background: #0D1166; width: 100%; max-width: 520px;
+  border: 1.5px solid rgba(150,230,220,0.2);
+  box-shadow: 12px 12px 0 rgba(150,230,220,0.1);
+  position: relative; overflow: hidden;
+}
+.modal-header {
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid rgba(150,230,220,0.1);
+  position: relative;
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  width: 32px; height: 32px; cursor: pointer; font-size: 16px;
+  color: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center;
+  transition: var(--transition); font-family: var(--font);
+}
+.modal-close:hover { background: rgba(150,230,220,0.1); color: var(--teal); border-color: var(--teal); }
+.modal-avatar {
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 900; color: var(--white);
+  margin-bottom: 12px; border: 1.5px solid rgba(150,230,220,0.2);
+}
+.modal-name { font-size: 20px; font-weight: 900; color: var(--white); letter-spacing: -0.02em; margin-bottom: 3px; }
+.modal-role { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); }
+.modal-body { padding: 24px 28px 28px; }
+.modal-section-title {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--teal); margin: 18px 0 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.modal-section-title::before { content:''; display:inline-block; width:14px; height:2px; background:var(--teal); }
+.modal-section-title:first-child { margin-top: 0; }
+.modal-bio { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.8; font-weight: 400; }
+.modal-anecdote {
+  background: rgba(150,230,220,0.05); border: 1.5px solid rgba(150,230,220,0.15);
+  border-left: 3px solid var(--teal); padding: 14px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.anecdote-img { width: 80px; height: 54px; object-fit: cover; border: 1.5px solid rgba(150,230,220,0.2); flex-shrink: 0; }
+.anecdote-text { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.65; font-weight: 400; font-style: italic; }
+.modal-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.fact-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(150,230,220,0.1); padding: 10px 12px; }
+.fact-label { font-size: 9px; font-weight: 700; color: rgba(150,230,220,0.4); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+.fact-value { font-size: 12px; font-weight: 700; color: var(--white); line-height: 1.3; }
+.modal-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.modal-tag { font-size: 10px; font-weight: 700; padding: 4px 12px; background: rgba(150,230,220,0.08); border: 1.5px solid rgba(150,230,220,0.25); color: var(--teal); }
+.modal-quote {
+  background: rgba(30,34,170,0.4); color: var(--white);
+  font-style: italic; font-size: 14px; line-height: 1.6;
+  padding: 20px 20px 20px 40px; position: relative;
+  border: 1.5px solid rgba(103,107,228,0.3);
+  border-left: 3px solid var(--blue-light);
+}
+.modal-quote::before { content:'"'; font-size: 56px; color: var(--teal); position: absolute; top: -8px; left: 14px; line-height: 1; }
+.modal-fun-fact { background: rgba(173,223,179,0.06); border: 1.5px solid rgba(173,223,179,0.2); border-left: 3px solid var(--mint); padding: 14px; }
+.modal-fun-fact-label { font-size: 9px; font-weight: 700; color: var(--mint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+.modal-fun-fact-text, .modal-placeholder-fact { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.65; }
+.modal-placeholder-fact { font-style: italic; }
+.modal-linkedin {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+  background: var(--blue); color: var(--white); border: 1.5px solid rgba(150,230,220,0.2);
+  padding: 8px 18px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.modal-linkedin:hover { box-shadow: var(--sh-teal); transform: translate(-2px,-2px); }
+
+/* ═══════════════════════════
+   FOOTER
+   ═══════════════════════════ */
+.footer {
+  background: #050730; border-top: 1px solid rgba(150,230,220,0.1);
+  padding: 24px 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 1;
+}
+.footer-brand { font-size: 13px; font-weight: 800; color: var(--white); letter-spacing: -0.01em; }
+.footer-brand span { color: var(--teal); }
+.footer-note { font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.2); }
+.footer-module { font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ═══════════════════════════
+   SCROLLBAR STYLING
+   ═══════════════════════════ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(150,230,220,0.2); }
+::-webkit-scrollbar-thumb:hover { background: rgba(150,230,220,0.4); }
+</style>
+</head>
+<body>
+
+<!-- ══════════ TOPNAV ══════════ -->
+<div class="topnav">
+  <div class="nav-brand">
+    <div class="nav-brand-mark">
+      <!-- myHQ flag icon simplified -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4 L4 20 M4 4 L16 7 L4 12" stroke="#1E22AA" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    myHQ — The Origin Story
+  </div>
+  <div class="nav-tag">Chapter 2 of 4 · Onboarding</div>
+  <div class="nav-pills">
+    <a class="nav-pill hub" href="index.html">← Course Hub</a>
+    <div class="nav-pill active" onclick="scrollToSection('#s-timeline',this)">Timeline</div>
+    <div class="nav-pill" onclick="scrollToSection('#s-team',this)">People</div>
+    <div class="nav-pill" onclick="scrollToSection('#s-org',this)">Org Structure</div>
+  </div>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <!-- Geometric rings -->
+  <div class="hero-geo-ring"></div>
+  <div class="hero-geo-ring"></div>
+  <div class="hero-geo-ring"></div>
+  <div class="hero-accent-bar"></div>
+
+  <!-- Faint flag supergraphic -->
+  <div class="hero-flag">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 10 L20 110 M20 10 L90 28 L20 55" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-chip">Chapter 2</div>
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-label">The Origin Story</div>
+    </div>
+
+    <!-- ✏️ CONTENT SLOT: Main headline -->
+    <h1 class="hero-h1">
+      From a friend's café<br>with <span class="accent">empty seats</span><br><span class="accent-coral">to the fastest<br>growing CRE platform.</span>
+    </h1>
+
+    <!-- ✏️ CONTENT SLOT: Sub-headline -->
+    <p class="hero-sub">
+      The story of myHQ started with something pretty simple — the belief that people do their best work when they're in the right environment. That belief became a mission. The mission became a company.
+    </p>
+
+    <!-- Vision block -->
+    <div class="hero-vision">
+      <div class="hero-vision-label">Our Vision</div>
+      <div class="hero-vision-text">"A world where everyone has the opportunity to make magic, everywhere."</div>
+    </div>
+
+    <div class="hero-cta-row">
+      <a class="hero-cta-btn" href="#s-timeline" onclick="scrollToSection('#s-timeline')">Start the Story →</a>
+      <a class="hero-cta-secondary" href="#s-team" onclick="scrollToSection('#s-team')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="11" r="2.5"/><path d="M3 21v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1"/><path d="M16 16h2a3 3 0 0 1 3 3v2"/></svg>
+        Meet the team
+      </a>
+    </div>
+
+    <div class="hero-divider"></div>
+
+    <!-- Chapter progress strip -->
+    <div class="hero-progress">
+      <div class="hero-prog-step done">
+        <span class="hero-prog-num">01</span>
+        What we do
+      </div>
+      <div class="hero-prog-step active">
+        <span class="hero-prog-num">02</span>
+        Origin Story
+      </div>
+      <div class="hero-prog-step">
+        <span class="hero-prog-num">03</span>
+        Products
+      </div>
+      <div class="hero-prog-step">
+        <span class="hero-prog-num">04</span>
+        Sales
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MAIN LAYOUT ══════════ -->
+<div class="layout" id="s-timeline">
+
+  <!-- ══════════ TIMELINE PANE ══════════ -->
+  <div class="timeline-pane">
+    <div class="section-label">
+      <div class="section-label-num">01</div>
+      <div class="section-label-text">The myHQ Timeline · Milestone by Milestone</div>
+      <div class="section-label-line"></div>
+    </div>
+    <p class="tl-intro">Click any milestone to unfold the story behind it.</p>
+
+    <div class="tl-grid">
+      <div class="tl-track" id="track">
+      <div class="tl-spine-wrap"><div class="tl-spine-fill" id="spineFill"></div></div>
+
+      <!-- ── PHASE 1: 2015 The Spark ── -->
+      <div class="tl-item" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>2015 — The Spark</div>
+          <!-- ✏️ CONTENT SLOT: Phase 1 headline -->
+          <div class="tl-event">Two batchmates stuck in Bangalore traffic, asking the same question over and over.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: Phase 1 body text -->
+            <p>Utkarsh Kawatra (ex-Helion Ventures) and Vinayak Aggarwal (ex-Goldman Sachs) had known each other since IIT Delhi. Years later, stuck in Bangalore traffic together, the same question kept coming up: <em>why can't people work from wherever they actually want?</em> That question is where myHQ came from.</p>
+
+            <div class="tl-dyk" data-dyk-id="2015-dash-The-Spark">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">Why these two, specifically?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p>Utkarsh and Vinayak weren't random co-founders. They'd known each other since <strong>IIT Delhi</strong> — but didn't actually start anything together back then. Utkarsh went into VC at Helion. Vinayak went to Goldman Sachs as a quant. The idea waited <strong>five years</strong> until they were both in Bangalore at the same time, frustrated by the same thing. Co-founder fit isn't a luxury — it's a precondition.</p>
+              </div>
+            </div>
+            
+
+            <span class="tl-badge badge-teal">The Insight</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 2: Early 2016 — The Move ── -->
+      <div class="tl-item" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>Early 2016 — The Move</div>
+          <!-- ✏️ CONTENT SLOT: Phase 2 headline -->
+          <div class="tl-event">They had a friend with a café. The café had a problem. They saw an opportunity.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: Phase 2 body text -->
+            <p>A friend ran a café in Delhi NCR that sat dead every morning — chairs up, tables empty, burning rent before the evening rush. <strong>Utkarsh and Vinayak looked at those empty chairs and saw a workspace.</strong> That's where myHQ actually starts.</p>
+
+            <div class="tl-dyk" data-dyk-id="Early-2016-dash-The-Move">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">What did the founders quit to do this?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p>Utkarsh walked away from a <strong>VC role at Helion Ventures</strong>. Vinayak walked away from <strong>Goldman Sachs</strong> as a Quant &amp; Algorithmic Trading Strategist. Both jobs paid extremely well. Both came with prestige. They left to run a <strong>day-pass concept out of someone else's café.</strong> The opportunity cost of starting myHQ was very real.</p>
+              </div>
+            </div>
+            
+
+            <span class="tl-badge badge-teal">The Origin</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 3: April 2016 — Founded ── -->
+      <div class="tl-item milestone" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>April 2016 — Founded</div>
+          <!-- ✏️ CONTENT SLOT: Phase 3 headline -->
+          <div class="tl-event">Free WiFi. Free coffee. Discounted menus. A place to make magic. No strings.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: Phase 3 body text -->
+            <p>Come in, get WiFi, order at a discounted rate, work. No deposit, no monthly commitment. The café that used to sit empty before noon started filling up with freelancers, remote workers, and early founders — and that confirmed the core insight: <strong>idle space is wasted potential.</strong></p>
+
+            <div class="tl-dyk" data-dyk-id="april-2016-founded">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">How small was the original team?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p><strong>Two co-founders. One café. Zero employees.</strong> The first year was Utkarsh and Vinayak doing literally everything — supply, demand, customer support, ops. Most of the early signups came from Utkarsh standing at the café entrance and pitching the concept to walk-ins. There was no growth team because there was no team.</p>
+              </div>
+            </div>
+            
+
+            <span class="tl-badge badge-mint">Founded</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 4: 2016–17 — Word of Mouth ── -->
+      <div class="tl-item" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>2016–17 — First Legs</div>
+          <!-- ✏️ CONTENT SLOT: Phase 4 headline -->
+          <div class="tl-event">No marketing budget. Just word of mouth. And it was enough.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: Phase 4 body text -->
+            <p>They didn't run ads. People just told other people. One café became two, then five, then 20+ venues across Delhi NCR — <strong>Social, Philips MTV, CCD.</strong> The concept had legs; now it needed wings.</p>
+
+            <!-- Funding callout -->
+            <div class="funding-callout">
+              <span class="funding-callout-icon"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M6 7h12M6 12h12M9 7c0 4 4 4 4 7H6l7 6"/></svg></span>
+              <div>
+                <span class="funding-callout-year">2017 — First Round</span>
+                <div class="funding-callout-names">Neeraj Singh (Spinny) · Ashneer Grover (BharatPe)</div>
+              </div>
+            </div>
+
+            <div class="tl-dyk" data-dyk-id="2016–17-dash-First-Legs">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">Why did founders back this round, not VCs?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p>The 2017 round wasn't institutional capital. It was <strong>founder-to-founder belief.</strong> Neeraj Singh was building Spinny. Ashneer Grover was about to start BharatPe. They wrote cheques because they'd run their own zero-to-one and recognised the pattern. VCs at this stage were still trying to figure out if coworking was a real category. Operators-turned-investors saw it before VCs did.</p>
+              </div>
+            </div>
+            
+
+            <span class="tl-badge badge-teal">20+ Spaces</span>
+            <span class="tl-badge badge-blue">2017 Angel Round</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 5: 2017–18 — Coworking Pivot ── -->
+      <div class="tl-item" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>2017–18 — Growing Up</div>
+          <!-- ✏️ CONTENT SLOT: Phase 5 headline -->
+          <div class="tl-event">Cafés were the start. Coworking spaces were the next step. The Day Pass is born.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: Phase 5 body text -->
+            <p>Cafés could only scale so far. They moved fast: <strong>100+ coworking spaces</strong> listed on the platform in short order. And with that came a new product — <strong>the Day Pass.</strong> Book a day, show up, work, leave. Pay only for what you use.</p>
+
+            <!-- Funding callout -->
+            <div class="funding-callout">
+              <span class="funding-callout-icon"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M6 7h12M6 12h12M9 7c0 4 4 4 4 7H6l7 6"/></svg></span>
+              <div>
+                <span class="funding-callout-year">2018 — Second Round</span>
+                <div class="funding-callout-names">Anupam Mittal</div>
+              </div>
+            </div>
+
+            <div class="tl-dyk" data-dyk-id="2017–18-dash-Growing-Up">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">Why did the Day Pass change everything?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p>Cafés had <strong>no infrastructure for work</strong> — no power outlets, unreliable wifi, ambient noise. Coworking spaces solved that. But coworking operators still sold annual memberships. The Day Pass was the unlock: take coworking-grade space and price it like a coffee. Suddenly the addressable market wasn't just full-time freelancers — it was <strong>every professional with a laptop and one productive day to spend.</strong></p>
+              </div>
+            </div>
+            
+
+            <span class="tl-badge badge-teal">100+ Spaces</span>
+            <span class="tl-badge badge-blue">Day Pass Born</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 6: 2018–19 — Three Verticals ── -->
+      <div class="tl-item milestone" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>2018–19 — Three Verticals Seeded</div>
+          <!-- ✏️ CONTENT SLOT: Phase 6 headline -->
+          <div class="tl-event">Clients started asking for more. So they started building more.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: Phase 6 body text -->
+            <p>As more businesses used the platform, the asks got more varied — a business address here, GST registration there, a proper team office somewhere else. Three distinct lines started taking shape:</p>
+
+            <!-- Verticals grid -->
+            <div class="verticals-grid">
+              <div class="vertical-card clickable" onclick="openVerticalModal('vo', event)">
+                <div class="vertical-card-label">Then</div>
+                <div class="vertical-card-arrow">Shopify Platform</div>
+                <div class="vertical-card-name">▸ Virtual Office</div>
+                <div class="vertical-card-desc">Business address, GST registration, compliance across states.</div>
+              </div>
+              <div class="vertical-card clickable" onclick="openVerticalModal('od', event)">
+                <div class="vertical-card-label">Then</div>
+                <div class="vertical-card-arrow">Day Passes</div>
+                <div class="vertical-card-name">▸ On Demand</div>
+                <div class="vertical-card-desc">Flexible workspace, bookable by the day or hour.</div>
+              </div>
+              <div class="vertical-card clickable" style="grid-column: span 2;" onclick="openVerticalModal('am', event)">
+                <div class="vertical-card-label">Then</div>
+                <div class="vertical-card-arrow">Coworking listings</div>
+                <div class="vertical-card-name">▸ Assisted Marketplace</div>
+                <div class="vertical-card-desc">High-touch advisory — limited to coworking at this stage, but the bigger idea was already forming.</div>
+              </div>
+            </div>
+            
+
+            <!-- ✏️ CONTENT SLOT: Office evolution text -->
+            <div class="content-slot-text">
+              <div>
+                <span class="slot-label">Team Growth Story</span>
+                <span class="slot-hint">Utkarsh's basement → 2BHK → 40-person team across Delhi NCR. A concept had actually become a company. Add any supporting detail here.</span>
+              </div>
+            </div>
+
+            <!-- Funding callout -->
+            <div class="funding-callout">
+              <span class="funding-callout-icon"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M6 7h12M6 12h12M9 7c0 4 4 4 4 7H6l7 6"/></svg></span>
+              <div>
+                <span class="funding-callout-year">2019 — VC Round</span>
+                <div class="funding-callout-names">Led by India Quotient</div>
+              </div>
+            </div>
+
+            <div class="tl-dyk" data-dyk-id="2018–19-dash-Three-Verticals-Seeded">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">Where was the team actually working from?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p>A 40-person team needs space to operate. Theirs was scrappy: started in <strong>Utkarsh's parents' basement</strong>, then moved to a <strong>2BHK apartment in Delhi</strong>, then to a small office. Nothing about the company's growth was funded by a flashy HQ. The team was running a workspace marketplace from rented residential rooms. The irony was deliberate — they used the product themselves before insisting clients did.</p>
+              </div>
+            </div>
+
+            <span class="tl-badge badge-mint">3 Verticals</span>
+            <span class="tl-badge badge-teal">40-Person Team</span>
+            <span class="tl-badge badge-blue">India Quotient 2019</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 7: COVID ── -->
+      <div class="tl-item covid" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>2020–21 — The Test</div>
+          <!-- ✏️ CONTENT SLOT: COVID headline -->
+          <div class="tl-event">COVID shut everything down. Multiple buyout offers came in. They said no to every single one.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: COVID body text -->
+            <p>COVID didn't ease them into a tough patch — it just turned the lights off. Multiple buyout offers came in. <strong>The founders said no to every single one.</strong> Then ANAROCK came — not as a rescue, but as the right fit: India's largest CRE advisory, and they wanted myHQ to keep being myHQ. The founders stayed. The mission stayed.</p>
+
+            <div class="tl-dyk" data-dyk-id="2020–21-dash-The-Test">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">Why ANAROCK and not anyone else?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p>Multiple buyout offers came in during COVID. Most were <strong>fire-sale offers from people who saw a discounted asset.</strong> ANAROCK was different. They're India's biggest CRE advisory — they understood real estate at the deepest level, and they wanted myHQ to <strong>keep operating as myHQ.</strong> Not absorbed. Not rebranded. The founders stayed. The team stayed. The mission stayed. That structural alignment is why this acquisition worked when most others wouldn't have.</p>
+              </div>
+            </div>
+            
+
+            <span class="tl-badge badge-white">Resilience</span>
+            <span class="tl-badge badge-teal">ANAROCK 2021</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 8: Post-ANAROCK ── -->
+      <div class="tl-item milestone" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>2021–22 — New Chapter</div>
+          <!-- ✏️ CONTENT SLOT: Phase 8 headline -->
+          <div class="tl-event">Three products, properly built. Four cities. A real operation.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: Phase 8 body text -->
+            <p>With ANAROCK's backing, the verticals that had been forming for years were now fully live — and the team finally had the infrastructure to scale them properly.</p>
+
+            <div class="verticals-grid">
+              <div class="vertical-card clickable" onclick="openVerticalModal('am', event)">
+                <div class="vertical-card-label">Assisted Marketplace</div>
+                <div class="vertical-card-desc">Full-service advisory for businesses finding managed office space, end to end.</div>
+              </div>
+              <div class="vertical-card clickable" onclick="openVerticalModal('vo', event)">
+                <div class="vertical-card-label">Virtual Office</div>
+                <div class="vertical-card-desc">A proper product line. Business address, GST, compliance — not a workaround.</div>
+              </div>
+              <div class="vertical-card clickable" style="grid-column: span 2;" onclick="openVerticalModal('od', event)">
+                <div class="vertical-card-label">On Demand</div>
+                <div class="vertical-card-desc">The original model — day passes and meeting rooms — now at scale. Two head offices: Bengaluru (tech) and Gurugram (business).</div>
+              </div>
+            </div>
+
+            <!-- ✏️ CONTENT SLOT: Metrics at this stage -->
+            <div class="content-slot-text">
+              <div>
+                <span class="slot-label">Metrics — Then (post-ANAROCK)</span>
+                <span class="slot-hint">Add key numbers from this period here: revenue, cities, team size, clients etc. Will be compared to today's numbers in the next phase.</span>
+              </div>
+            </div>
+
+            <div class="tl-dyk" data-dyk-id="2021–22-dash-New-Chapter">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">What changed under ANAROCK that wasn't obvious?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p>The visible changes were the easy part — bigger team, more cities, real verticals. The invisible change was <strong>credibility on enterprise calls.</strong> Pre-ANAROCK, myHQ was "a coworking app." Post-ANAROCK, it was "myHQ by ANAROCK" — which gave the sales team a different conversation: now you weren't pitching against the operator, you were pitching <strong>India's largest CRE advisory</strong> as the broker. That repositioning unlocked deal sizes that weren't reachable before.</p>
+              </div>
+            </div>
+            
+
+            <span class="tl-badge badge-mint">3 Verticals Live</span>
+            <span class="tl-badge badge-teal">4 Cities</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHASE 9: Today ── -->
+      <div class="tl-item milestone active" onclick="toggle(this)">
+        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-era"><div class="era-dot"></div>Today — 2026</div>
+          <!-- ✏️ CONTENT SLOT: Phase 9 headline -->
+          <div class="tl-event">India's fastest growing CRE platform. And they're just getting started.</div>
+          <div class="tl-detail">
+            <!-- ✏️ CONTENT SLOT: Phase 9 body text + Then vs Now comparison -->
+            <div class="content-slot-text">
+              <div>
+                <span class="slot-label">Then vs. Now — Metrics Comparison</span>
+                <span class="slot-hint">Insert the "Then" (post-ANAROCK) and "Now" (2026) numbers here. Format as a before/after comparison — cities, revenue, team, clients, seats etc.</span>
+              </div>
+            </div>
+
+            <p style="margin-top:14px;">From a friend's café with empty chairs to India's fastest-growing CRE platform. <strong>Same mission. Completely different scale.</strong></p>
+
+            <!-- International expansion callout -->
+            <div class="funding-callout" style="border-left-color: var(--teal); border-color: rgba(150,230,220,0.25); background: rgba(150,230,220,0.07); margin-top:14px;">
+              <span class="funding-callout-icon"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+              <div>
+                <span class="funding-callout-year" style="color: var(--teal);">What's Next — International</span>
+                <div class="funding-callout-names">myHQ is taking the model global through <a href="https://myhqspaces.com" target="_blank" style="color:var(--teal);font-weight:700;">myhqspaces.com</a></div>
+              </div>
+            </div>
+
+            <div class="tl-dyk" data-dyk-id="Today-dash-2026">
+              <button class="tl-dyk-trigger" onclick="toggleDyk(this, event)" type="button">
+                <span class="tl-dyk-trigger-left">
+                  <span class="tl-dyk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7v.5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span>
+                  <span>
+                    <span class="tl-dyk-label">Did you know</span>
+                    <span class="tl-dyk-teaser">Why go international now?</span>
+                  </span>
+                </span>
+                <span class="tl-dyk-chevron"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+              </button>
+              <div class="tl-dyk-body">
+                <p>India is still the core market — but <strong>flexible workspace is becoming the default globally</strong>, not just here. myhqspaces.com is the international play: same model, different geographies. The bet is that what worked in India (operator-agnostic advisory + transparent inventory) translates because the underlying problem — businesses needing space without being trapped by it — is universal. Going global isn't a vanity move; it's the natural extension of a model that's already proven.</p>
+              </div>
+            </div>
+
+            <span class="tl-badge badge-teal">Today</span>
+            <span class="tl-badge badge-mint">Going Global</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tl-track -->
+
+      <!-- ══════════ PHOTO RAIL ══════════ -->
+      <aside class="tl-photo-rail" aria-label="Photos through the years">
+        <div class="tl-photo-rail-label">The Visual Story</div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">2015</div>
+          <input type="file" accept="image/*" id="rail-2015" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">Utkarsh &amp; Vinayak<br>Bengaluru, 2015</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-2015').click()">Add photo</button>
+          </div>
+        </div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">Early 2016</div>
+          <input type="file" accept="image/*" id="rail-2016a" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">The first café<br>Delhi NCR</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-2016a').click()">Add photo</button>
+          </div>
+        </div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">April 2016</div>
+          <input type="file" accept="image/*" id="rail-2016b" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">myHQ launch day<br>The founding moment</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-2016b').click()">Add photo</button>
+          </div>
+        </div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">2016–17</div>
+          <input type="file" accept="image/*" id="rail-2017" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">Café network expansion<br>Social, MTV, CCD</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-2017').click()">Add photo</button>
+          </div>
+        </div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">2017–18</div>
+          <input type="file" accept="image/*" id="rail-2018" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">Coworking pivot<br>Day Pass is born</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-2018').click()">Add photo</button>
+          </div>
+        </div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">2018–19</div>
+          <input type="file" accept="image/*" id="rail-2019" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">3 verticals seeded<br>40-person team</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-2019').click()">Add photo</button>
+          </div>
+        </div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">2020–21</div>
+          <input type="file" accept="image/*" id="rail-2020" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">Surviving COVID<br>The ANAROCK chapter</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-2020').click()">Add photo</button>
+          </div>
+        </div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">2021–22</div>
+          <input type="file" accept="image/*" id="rail-2022" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">myHQ by ANAROCK<br>4 cities, 3 verticals live</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-2022').click()">Add photo</button>
+          </div>
+        </div>
+
+        <div class="rail-photo">
+          <div class="rail-photo-era">Today</div>
+          <input type="file" accept="image/*" id="rail-today" onchange="loadRailPhoto(this)">
+          <div class="rail-photo-content">
+            <div class="rail-photo-icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="rail-photo-hint">India's fastest<br>growing CRE platform</div>
+            <button class="rail-photo-upload-btn" onclick="event.stopPropagation();document.getElementById('rail-today').click()">Add photo</button>
+          </div>
+        </div>
+      </aside>
+
+    </div><!-- /tl-grid -->
+
+    <!-- Stats row — current metrics -->
+    <div class="tl-stats">
+      <div class="stat-card">
+        <span class="slot-label">Seats</span>
+        <div class="stat-num">50K+</div>
+        <div class="stat-lbl">Available</div>
+      </div>
+      <div class="stat-card">
+        <span class="slot-label">GMV</span>
+        <div class="stat-num">₹500Cr+</div>
+        <div class="stat-lbl">Annual</div>
+      </div>
+      <div class="stat-card">
+        <span class="slot-label">Cities</span>
+        <!-- ✏️ CONTENT SLOT: update metric -->
+        <div class="stat-num placeholder">TBD</div>
+        <div class="stat-lbl">Covered</div>
+      </div>
+      <div class="stat-card">
+        <span class="slot-label">B2B Clients</span>
+        <div class="stat-num">10K+</div>
+        <div class="stat-lbl">Businesses</div>
+      </div>
+    </div>
+
+  </div><!-- /timeline-pane -->
+
+</div><!-- /layout -->
+
+<!-- ══════════ PEOPLE SECTION ══════════ -->
+<div class="people-section" id="s-team">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-eyebrow">The People</div>
+        <h2 class="section-h2">The humans behind <span class="accent">myHQ.</span></h2>
+        <p class="section-sub">Every founder. Every PnL head. Every story you'll need on a sales call. Click any card to read the full story — backgrounds, anecdotes, quotes, and what they actually do here.</p>
+      </div>
+      <div class="section-counter">
+        <span id="team-count">6</span>&nbsp;Profiles
+      </div>
+    </div>
+
+    <div class="team-group-label">Founders</div>
+    <div class="team-grid">
+
+            <div class="person-card" onclick="flipPerson(this, event)">
+        <span class="person-flip-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 12a9 9 0 1 1-3.5-7.1M21 4v5h-5"/></svg>
+        </span>
+        <div class="person-inner">
+          <div class="person-face">
+            <div class="person-banner">
+              <div class="person-banner-pattern"></div>
+              <div class="person-pulse"><span class="person-pulse-dot"></span>Active</div>
+              <div class="person-initials-block">UK</div>
+            </div>
+            <div class="person-body">
+              <div class="person-name">Utkarsh Kawatra</div>
+              <div class="person-role-badge">Co-Founder &amp; CEO</div>
+              <div class="person-tagline">Ex-Helion Ventures &rarr; myHQ. Building India's most flexible workspace economy since a café gave him the idea.</div>
+              <div class="person-chips">
+            <span class="p-chip">Strategy</span>
+            <span class="p-chip">Business Dev</span>
+            <span class="p-chip accent">BloodConnect NGO</span>
+              </div>
+              <div class="person-cta">Tap to hear them <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+          <div class="person-rear">
+            <div>
+              <div class="person-rear-label">In their own words</div>
+              <div class="person-rear-quote">We started with a café that had empty seats during the day. That was our first office. Everything came from that insight.</div>
+            </div>
+            <div class="person-rear-actions">
+              <button class="person-rear-btn" onclick="event.stopPropagation();openModal('utkarsh')">Full profile</button>
+              <button class="person-rear-flip-back" onclick="event.stopPropagation();flipPerson(this.closest('.person-card'), event)">&larr; Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="person-card teal" onclick="flipPerson(this, event)">
+        <span class="person-flip-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 12a9 9 0 1 1-3.5-7.1M21 4v5h-5"/></svg>
+        </span>
+        <div class="person-inner">
+          <div class="person-face">
+            <div class="person-banner">
+              <div class="person-banner-pattern"></div>
+              <div class="person-pulse"><span class="person-pulse-dot"></span>Active</div>
+              <div class="person-initials-block">VA</div>
+            </div>
+            <div class="person-body">
+              <div class="person-name">Vinayak Aggarwal</div>
+              <div class="person-role-badge">Co-Founder &amp; CTO</div>
+              <div class="person-tagline">Ex-Goldman Sachs &rarr; myHQ. The engineering mind behind a platform that never stops moving.</div>
+              <div class="person-chips">
+            <span class="p-chip">Product</span>
+            <span class="p-chip">Technology</span>
+            <span class="p-chip accent">2 ML Patents</span>
+              </div>
+              <div class="person-cta">Tap to hear them <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+          <div class="person-rear">
+            <div>
+              <div class="person-rear-label">In their own words</div>
+              <div class="person-rear-quote">The bond between us grew during long Bangalore traffic jams and dinner outings in 2015. That's where myHQ was really born.</div>
+            </div>
+            <div class="person-rear-actions">
+              <button class="person-rear-btn" onclick="event.stopPropagation();openModal('vinayak')">Full profile</button>
+              <button class="person-rear-flip-back" onclick="event.stopPropagation();flipPerson(this.closest('.person-card'), event)">&larr; Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="team-group-label">Leadership</div>
+    <div class="team-grid">
+
+            <div class="person-card coral" onclick="flipPerson(this, event)">
+        <span class="person-flip-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 12a9 9 0 1 1-3.5-7.1M21 4v5h-5"/></svg>
+        </span>
+        <div class="person-inner">
+          <div class="person-face">
+            <div class="person-banner">
+              <div class="person-banner-pattern"></div>
+              <div class="person-pulse"><span class="person-pulse-dot"></span>Active</div>
+              <div class="person-initials-block">MK</div>
+            </div>
+            <div class="person-body">
+              <div class="person-name">Manoj Kumar Yadav</div>
+              <div class="person-role-badge">PnL Head &mdash; Sales</div>
+              <div class="person-tagline">7+ years in real estate. The engine that converts workspace requirements into signed deals.</div>
+              <div class="person-chips">
+            <span class="p-chip">Sales</span>
+            <span class="p-chip">Real Estate</span>
+            <span class="p-chip accent">Enterprise</span>
+              </div>
+              <div class="person-cta">Tap to hear them <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+          <div class="person-rear">
+            <div>
+              <div class="person-rear-label">In their own words</div>
+              <div class="person-rear-quote">Real estate moves on relationships and trust. That hasn't changed. What's changed is the product — and ours is the best.</div>
+            </div>
+            <div class="person-rear-actions">
+              <button class="person-rear-btn" onclick="event.stopPropagation();openModal('manoj')">Full profile</button>
+              <button class="person-rear-flip-back" onclick="event.stopPropagation();flipPerson(this.closest('.person-card'), event)">&larr; Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="person-card mint" onclick="flipPerson(this, event)">
+        <span class="person-flip-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 12a9 9 0 1 1-3.5-7.1M21 4v5h-5"/></svg>
+        </span>
+        <div class="person-inner">
+          <div class="person-face">
+            <div class="person-banner">
+              <div class="person-banner-pattern"></div>
+              <div class="person-pulse"><span class="person-pulse-dot"></span>Active</div>
+              <div class="person-initials-block">NA</div>
+            </div>
+            <div class="person-body">
+              <div class="person-name">Nitin Agarwal</div>
+              <div class="person-role-badge">PnL Head &mdash; Virtual Office</div>
+              <div class="person-tagline">Serial builder. Leading Virtual Office and international expansion through myhqspaces.com.</div>
+              <div class="person-chips">
+            <span class="p-chip">Virtual Office</span>
+            <span class="p-chip accent">International</span>
+              </div>
+              <div class="person-cta">Tap to hear them <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+          <div class="person-rear">
+            <div>
+              <div class="person-rear-label">In their own words</div>
+              <div class="person-rear-quote">Every company I built before myHQ taught me something different. Here, I get to use all of it.</div>
+            </div>
+            <div class="person-rear-actions">
+              <button class="person-rear-btn" onclick="event.stopPropagation();openModal('nitin')">Full profile</button>
+              <button class="person-rear-flip-back" onclick="event.stopPropagation();flipPerson(this.closest('.person-card'), event)">&larr; Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="person-card growth" onclick="flipPerson(this, event)">
+        <span class="person-flip-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 12a9 9 0 1 1-3.5-7.1M21 4v5h-5"/></svg>
+        </span>
+        <div class="person-inner">
+          <div class="person-face">
+            <div class="person-banner">
+              <div class="person-banner-pattern"></div>
+              <div class="person-pulse"><span class="person-pulse-dot"></span>Active</div>
+              <div class="person-initials-block">JB</div>
+            </div>
+            <div class="person-body">
+              <div class="person-name">Judhajit Bal</div>
+              <div class="person-role-badge">PnL Head &mdash; Growth</div>
+              <div class="person-tagline">Ex-Coca-Cola. Founder. Now leading growth and international expansion at myHQ.</div>
+              <div class="person-chips">
+            <span class="p-chip">Growth</span>
+            <span class="p-chip accent">International</span>
+              </div>
+              <div class="person-cta">Tap to hear them <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+          <div class="person-rear">
+            <div>
+              <div class="person-rear-label">In their own words</div>
+              <div class="person-rear-quote">Growth isn't a department — it's a mindset. Every team at myHQ owns a piece of it.</div>
+            </div>
+            <div class="person-rear-actions">
+              <button class="person-rear-btn" onclick="event.stopPropagation();openModal('judhajit')">Full profile</button>
+              <button class="person-rear-flip-back" onclick="event.stopPropagation();flipPerson(this.closest('.person-card'), event)">&larr; Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="person-card amber" onclick="flipPerson(this, event)">
+        <span class="person-flip-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 12a9 9 0 1 1-3.5-7.1M21 4v5h-5"/></svg>
+        </span>
+        <div class="person-inner">
+          <div class="person-face">
+            <div class="person-banner">
+              <div class="person-banner-pattern"></div>
+              <div class="person-pulse"><span class="person-pulse-dot"></span>Active</div>
+              <div class="person-initials-block">MS</div>
+            </div>
+            <div class="person-body">
+              <div class="person-name">Malvika Sankrityayan</div>
+              <div class="person-role-badge">Marketing Head</div>
+              <div class="person-tagline">Ex-Accredian, S&amp;P. NMIMS alum. Now driving marketing across the myHQ stack.</div>
+              <div class="person-chips">
+            <span class="p-chip">Marketing</span>
+            <span class="p-chip">Brand</span>
+            <span class="p-chip accent">5+ yrs in RE</span>
+              </div>
+              <div class="person-cta">Tap to hear them <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+          <div class="person-rear">
+            <div>
+              <div class="person-rear-label">In their own words</div>
+              <div class="person-rear-quote">Marketing in real estate isn't about flash. It's about earning trust at scale — and then doing it again.</div>
+            </div>
+            <div class="person-rear-actions">
+              <button class="person-rear-btn" onclick="event.stopPropagation();openModal('malvika')">Full profile</button>
+              <button class="person-rear-flip-back" onclick="event.stopPropagation();flipPerson(this.closest('.person-card'), event)">&larr; Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ORG STRUCTURE SECTION ══════════ -->
+<div class="org-section" id="s-org">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-eyebrow">How We're Organised</div>
+        <h2 class="section-h2">Four tiers. <span class="accent">One PnL.</span></h2>
+        <p class="section-sub">myHQ runs lean. Everyone owns a number — from associates booking site visits to PnL heads owning ₹75Cr+ verticals. Here's how the org stacks up, what each tier owns, and how bonuses tie back to revenue.</p>
+      </div>
+      <div class="section-counter">
+        4 Tiers
+      </div>
+    </div>
+
+    <div class="org-pyramid">
+
+      <div class="org-tier org-tier-1">
+        <div class="org-tier-left">
+          <div class="org-tier-num">Tier 01 · Top of House</div>
+          <div class="org-tier-name">CXOs / PnL Heads</div>
+          <div class="org-tier-designations">DVP → Director</div>
+        </div>
+        <div class="org-tier-right">
+          <div class="org-fact">
+            <div class="org-fact-label">What They Do</div>
+            <div class="org-fact-value">Own overall business strategy &amp; PnL. Coordinate marketing, product &amp; finance on cross-functional bets.</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Targets &amp; Cadence</div>
+            <div class="org-fact-value"><strong>₹15Cr – ₹75Cr / yr</strong><br>Tracked quarterly</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Team Size</div>
+            <div class="org-fact-value"><strong>30 – 150</strong> people</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Bonus Structure</div>
+            <div class="org-fact-value">Annual · Variable<br>Revenue + Profit sharing</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="org-tier org-tier-2">
+        <div class="org-tier-left">
+          <div class="org-tier-num">Tier 02 · Sub-PnL Owners</div>
+          <div class="org-tier-name">Business Leads</div>
+          <div class="org-tier-designations">Senior Manager → GM → AVP</div>
+        </div>
+        <div class="org-tier-right">
+          <div class="org-fact">
+            <div class="org-fact-label">What They Do</div>
+            <div class="org-fact-value">Drive a slice of the PnL. Support teams on bigger transactions. Ensure cross-team learnings flow.</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Targets &amp; Cadence</div>
+            <div class="org-fact-value"><strong>₹5Cr – ₹20Cr / yr</strong><br>Tracked quarterly</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Team Size</div>
+            <div class="org-fact-value"><strong>10 – 30</strong> people</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Bonus Structure</div>
+            <div class="org-fact-value">Annual · Variable<br>Revenue + Profit sharing</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="org-tier org-tier-3">
+        <div class="org-tier-left">
+          <div class="org-tier-num">Tier 03 · Player-Coaches</div>
+          <div class="org-tier-name">Team Leads</div>
+          <div class="org-tier-designations">Assistant Manager → Senior Manager</div>
+        </div>
+        <div class="org-tier-right">
+          <div class="org-fact">
+            <div class="org-fact-label">What They Do</div>
+            <div class="org-fact-value">Drive daily team processes &amp; CRM hygiene. Support team in client meetings. Carry individual revenue too.</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Targets &amp; Cadence</div>
+            <div class="org-fact-value"><strong>₹2Cr – ₹8Cr / yr</strong><br>Tracked monthly / quarterly</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Team Size</div>
+            <div class="org-fact-value"><strong>1 – 10</strong> people</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Bonus Structure</div>
+            <div class="org-fact-value">Annual · Variable<br>Revenue + direct team cost basis</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="org-tier org-tier-4">
+        <div class="org-tier-left">
+          <div class="org-tier-num">Tier 04 · The Front Line</div>
+          <div class="org-tier-name">Individual Contributors</div>
+          <div class="org-tier-designations">Associate → Analyst → Assistant Manager</div>
+        </div>
+        <div class="org-tier-right">
+          <div class="org-fact">
+            <div class="org-fact-label">What They Do</div>
+            <div class="org-fact-value">Front-facing client interaction. Own CRM precision. Where the actual deals get done.</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Targets &amp; Cadence</div>
+            <div class="org-fact-value"><strong>₹20L – ₹1.5Cr / yr</strong><br>Tracked weekly / monthly</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Team Size</div>
+            <div class="org-fact-value">Individual<br>(no direct reports)</div>
+          </div>
+          <div class="org-fact">
+            <div class="org-fact-label">Bonus Structure</div>
+            <div class="org-fact-value">Monthly · Variable<br>Revenue + direct cost basis</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="org-legend">
+      <strong>Read it like this:</strong> The further down you go, the tighter the cadence and the more individual the number. ICs get measured weekly. Directors get measured quarterly. Everyone — every single tier — has a revenue number. That's not a coincidence. That's the model.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CHAPTER CLOSE ══════════ -->
+<div class="chapter-close-wrap">
+  <div class="section-wrap">
+    <div class="chapter-close" id="chapter-close">
+      <div class="chapter-close-text">
+        <div class="chapter-close-eyebrow">Chapter 2 Complete</div>
+        <div class="chapter-close-title">You know the story. Now go tell it.</div>
+        <div class="chapter-close-sub">The origin story is one of your most powerful sales tools. Clients trust companies with a real story — and ours is genuinely good. Use it.</div>
+      </div>
+      <a class="chapter-close-btn" id="cg-return-btn" href="index.html">← Back to Course Hub</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ VERTICAL OVERVIEW MODAL ══════════ -->
+<div class="modal-overlay" id="verticalModalOverlay" onclick="closeVerticalModalOnBg(event)">
+  <div class="vertical-modal-box" id="verticalModalBox"></div>
+</div>
+
+<!-- ══════════ TEAM MODAL ══════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+  <div class="modal-box">
+    <div class="modal-header" id="modalHeader">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-avatar" id="modalAvatar" style="background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-role" id="modalRole"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<div class="footer">
+  <div class="footer-brand">my<span>HQ</span> by ANAROCK</div>
+  <div class="footer-note">Internal Training Material · Not for Distribution</div>
+  <div class="footer-module">Chapter 2 of 4</div>
+</div>
+
+<script>
+/* ─── SCROLL HELPER ─── */
+function scrollToSection(selector, pill) {
+  const el = document.querySelector(selector);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (pill) {
+    document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+  }
+}
+
+/* ─── TIMELINE TOGGLE ─── */
+function toggle(item) {
+  const wasActive = item.classList.contains('active');
+  document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('active'));
+  if (!wasActive) item.classList.add('active');
+  updateSpine();
+  syncRailPhotos();
+}
+
+function syncRailPhotos() {
+  const items  = document.querySelectorAll('#track .tl-item');
+  const photos = document.querySelectorAll('.rail-photo');
+  if (!items.length || !photos.length || items.length !== photos.length) return;
+  requestAnimationFrame(() => {
+    items.forEach((item, i) => {
+      const mb = i < items.length - 1 ? (parseFloat(getComputedStyle(item).marginBottom) || 0) : 0;
+      photos[i].style.height = (item.offsetHeight + mb) + 'px';
+    });
+  });
+}
+
+function updateSpine() {
+  const track = document.getElementById('track');
+  const fill  = document.getElementById('spineFill');
+  const active = track.querySelector('.tl-item.active');
+  if (!active) { fill.style.height = '0'; return; }
+  const trackRect  = track.getBoundingClientRect();
+  const activeRect = active.getBoundingClientRect();
+  const pct = ((activeRect.bottom - trackRect.top) / trackRect.height) * 100;
+  fill.style.height = Math.min(100, Math.max(0, pct)) + '%';
+}
+
+/* ─── PHOTO UPLOAD ─── */
+function loadPhoto(input, slotId, captionId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const slot    = document.getElementById(slotId);
+    const img     = slot.querySelector('img');
+    const overlay = slot.querySelector('.upload-overlay');
+    img.src = e.target.result;
+    img.style.display = 'block';
+    overlay.style.display = 'none';
+    const caption = document.getElementById(captionId);
+    if (caption) caption.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ─── RAIL PHOTO UPLOAD ─── */
+function loadRailPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const slot = input.closest('.rail-photo');
+    const content = slot.querySelector('.rail-photo-content');
+    let img = slot.querySelector('img.uploaded');
+    if (!img) {
+      img = document.createElement('img');
+      img.className = 'uploaded';
+      slot.appendChild(img);
+    }
+    img.src = e.target.result;
+    if (content) content.style.display = 'none';
+    // Add caption from era + hint
+    const era = slot.querySelector('.rail-photo-era')?.textContent || '';
+    const hint = slot.querySelector('.rail-photo-hint')?.textContent.replace(/\s+/g,' ').trim() || '';
+    let cap = slot.querySelector('.rail-photo-caption');
+    if (!cap) {
+      cap = document.createElement('div');
+      cap.className = 'rail-photo-caption';
+      slot.appendChild(cap);
+    }
+    cap.textContent = hint;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ─── INLINE DYK TOGGLE (per-phase reveal) ─── */
+const revealedDyks = new Set();
+function toggleDyk(btn, ev) {
+  if (ev) ev.stopPropagation();
+  const wrap = btn.closest('.tl-dyk');
+  if (!wrap) return;
+  wrap.classList.toggle('open');
+  if (wrap.classList.contains('open')) {
+    revealedDyks.add(wrap.dataset.dykId || wrap.id || 'x');
+  }
+  // Mark complete after 3+ DYKs revealed across the timeline
+  if (revealedDyks.size >= 3) {
+    markChapterComplete();
+  }
+}
+
+/* ─── VERTICAL OVERVIEW MODAL ─── */
+const verticalData = {
+  am: {
+    cls: 'am',
+    eyebrow: 'Vertical · Assisted Marketplace',
+    title: 'Assisted Marketplace (AM)',
+    tagline: 'Full-service advisory for businesses finding managed office space — end to end.',
+    sections: [
+      { label: 'What it is', html: '<p>The flagship enterprise vertical. AM is a <strong>high-touch advisory</strong> service: clients tell us their requirements, we shortlist spaces, run site visits, negotiate commercials, and close the deal. The client gets a free advisor; the operator pays us a brokerage on signed deals.</p>' },
+      { label: 'Who it serves', html: '<p>Companies looking for managed offices — typically <strong>20 seats and above.</strong> Decision makers range from founders &amp; HR heads at startups to CFOs &amp; admin leads at mid-market enterprises.</p>' },
+      { label: 'How myHQ wins', html: '<p>Real-time supply visibility, transparent pricing, and a sales team that actually knows the market. Operators get qualified demand; clients get an honest broker. That dual-sided trust is the moat.</p>' },
+      { label: 'At a glance', html: '<div class="v-modal-stats"><div class="v-modal-stat"><div class="v-modal-stat-label">Deal range</div><div class="v-modal-stat-value">20 to 500+ seats</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">Lock-in</div><div class="v-modal-stat-value">Typically 1–3 yrs</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">Client cost</div><div class="v-modal-stat-value">Free</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">Revenue model</div><div class="v-modal-stat-value">Operator brokerage</div></div></div>' }
+    ]
+  },
+  vo: {
+    cls: 'vo',
+    eyebrow: 'Vertical · Virtual Office',
+    title: 'Virtual Office (VO)',
+    tagline: 'A registered business address, GST registration, and compliance — without the office.',
+    sections: [
+      { label: 'What it is', html: '<p>A productised vertical that gives businesses a <strong>verified business address</strong> they can use for company registration, GST filing, and statutory communication — without leasing physical space.</p>' },
+      { label: 'Who it serves', html: '<p>Founders incorporating in a new state. Companies expanding into states without a physical office. Solopreneurs and digital-first businesses that need an address but no desk.</p>' },
+      { label: 'Why it grew', html: '<p>VO started as a Shopify-based product. It became a real product line because the demand was relentless — every state expansion any company does in India needs an address. myHQ turned a paperwork problem into a subscription product.</p>' },
+      { label: 'At a glance', html: '<div class="v-modal-stats"><div class="v-modal-stat"><div class="v-modal-stat-label">Use case</div><div class="v-modal-stat-value">Business address + GST</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">Tenure</div><div class="v-modal-stat-value">Subscription</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">States covered</div><div class="v-modal-stat-value">Pan-India</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">Decision time</div><div class="v-modal-stat-value">Days, not weeks</div></div></div>' }
+    ]
+  },
+  od: {
+    cls: 'od',
+    eyebrow: 'Vertical · On Demand',
+    title: 'On Demand (OD)',
+    tagline: 'The original myHQ model — flexible workspace, bookable by the day or hour.',
+    sections: [
+      { label: 'What it is', html: '<p>The product that started it all. On Demand lets professionals and small teams book <strong>day passes, meeting rooms, and event spaces</strong> across myHQ\'s coworking inventory — pay for what you use, no commitments.</p>' },
+      { label: 'Who it serves', html: '<p>Freelancers, hybrid teams, travelling professionals, and small companies that don\'t need a fixed office. Also occasional users — meetings, interviews, off-sites, workshops.</p>' },
+      { label: 'Why it matters', html: '<p>OD is the <strong>brand storefront.</strong> It\'s how professionals first discover myHQ. Many of those individual users later become decision-makers in companies that buy AM. The funnel runs through OD.</p>' },
+      { label: 'At a glance', html: '<div class="v-modal-stats"><div class="v-modal-stat"><div class="v-modal-stat-label">Booking unit</div><div class="v-modal-stat-value">Day / hour</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">Lock-in</div><div class="v-modal-stat-value">Zero</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">Inventory</div><div class="v-modal-stat-value">50K+ seats</div></div><div class="v-modal-stat"><div class="v-modal-stat-label">Revenue model</div><div class="v-modal-stat-value">Per-booking margin</div></div></div>' }
+    ]
+  }
+};
+
+function openVerticalModal(key, ev) {
+  if (ev) ev.stopPropagation();
+  const v = verticalData[key];
+  if (!v) return;
+  const overlay = document.getElementById('verticalModalOverlay');
+  const box = document.getElementById('verticalModalBox');
+  const sectionsHTML = v.sections.map(s =>
+    `<div class="v-modal-section"><div class="v-modal-section-label">${s.label}</div>${s.html}</div>`
+  ).join('');
+  box.innerHTML = `
+    <div class="v-modal-header ${v.cls}">
+      <button class="modal-close" onclick="closeVerticalModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" stroke-width="2.4" stroke="currentColor" fill="none"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="v-modal-eyebrow">${v.eyebrow}</div>
+      <div class="v-modal-title">${v.title}</div>
+      <div class="v-modal-tagline">${v.tagline}</div>
+    </div>
+    <div class="v-modal-body">${sectionsHTML}</div>
+    <div class="v-modal-footer">
+      <span class="v-modal-footer-icon"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      Each vertical is covered in depth in <strong style="color:var(--white);font-weight:700;margin:0 4px;">Chapter 3 — Products &amp; Business Model.</strong>
+    </div>
+  `;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVerticalModal() {
+  document.getElementById('verticalModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeVerticalModalOnBg(e) {
+  if (e.target === document.getElementById('verticalModalOverlay')) closeVerticalModal();
+}
+
+/* ─── PEOPLE — flip card on click ─── */
+function flipPerson(card, ev) {
+  if (ev) ev.stopPropagation();
+  if (!card) return;
+  // Don't flip if click came from a button inside
+  if (ev && ev.target.closest('.person-rear-btn, .person-rear-flip-back')) return;
+  card.classList.toggle('flipped');
+}
+
+/* ─── DEPRECATED: previous DYK card flip removed ─── */
+function flipDyk() { /* no-op, replaced by toggleDyk */ }
+
+let chapterMarked = false;
+function markChapterComplete() {
+  if (chapterMarked) return;
+  chapterMarked = true;
+  // Hook into shared progress system if present
+  if (window.myhqProgress && typeof window.myhqProgress.markComplete === 'function') {
+    window.myhqProgress.markComplete(2, flippedSet.size + '/8 revealed');
+  } else {
+    try {
+      localStorage.setItem('myhq_ch2_complete','true');
+          } catch(e){}
+  }
+  // Update return button to signal completion
+  const btn = document.getElementById('cg-return-btn');
+  if (btn) btn.href = 'index.html';
+}
+
+
+/* ─── TEAM MODAL DATA ─── */
+const team = {
+  utkarsh: {
+    initials:'UK', name:'Utkarsh Kawatra', role:'Co-Founder & CEO',
+    gradient:'linear-gradient(135deg, #1E22AA 0%, #676BE4 100%)',
+    bio:'Utkarsh co-founded myHQ in 2016 with one stubborn belief: professionals deserve the freedom to work from anywhere — at the cost of a coffee. He spent time at Helion Ventures before returning to that founding conviction. While still at IIT Delhi, he also co-founded BloodConnect, an NGO now operating across 10+ cities with a 300+ person volunteer team.',
+    anecdote:{text:'The first myHQ "office" was a café in Delhi that sat empty before noon. Utkarsh and Vinayak turned it into a coworking space — and charged professionals a day-pass. The café became proof of concept.',img:'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=120&h=80&fit=crop&q=80'},
+    quote:'"We started with a café that had empty seats during the day. That was our first office. Everything came from that insight."',
+    facts:[{label:'Before myHQ',value:'Helion Ventures'},{label:'Founded',value:'myHQ (2016) + BloodConnect NGO (2010)'},{label:'NGO Impact',value:'BloodConnect — 300+ team, 10+ cities'},{label:'Role',value:'Co-Founder & CEO'}],
+    tags:['Entrepreneurship','Business Strategy','Leadership','Angel Investor'],
+    linkedin:'https://www.linkedin.com/in/utkarshkawatra/'
+  },
+  vinayak: {
+    initials:'VA', name:'Vinayak Aggarwal', role:'Co-Founder & CTO',
+    gradient:'linear-gradient(135deg, #0E4D6E 0%, #96E6DC 100%)',
+    bio:'Vinayak leads product, technology, and marketing at myHQ. Before co-founding myHQ, he worked at Goldman Sachs as a Quant & Algorithmic Trading Strategist. He holds two patents in Machine Learning and Computer Vision.',
+    anecdote:{text:'Vinayak and Utkarsh bonded over long Bengaluru commutes and dinner outings in 2015 — before either of them had quit their jobs. By the time they launched myHQ, they\'d stress-tested every version of the idea across a dozen restaurants.',img:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=120&h=80&fit=crop&q=80'},
+    quote:'"The bond between us grew during long Bangalore traffic jams and dinner outings in 2015. That\'s where myHQ was really born."',
+    facts:[{label:'Before myHQ',value:'Goldman Sachs (Quant Trading), Adobe'},{label:'Inventions',value:'2 Patents — ML & Computer Vision'},{label:'Role',value:'Co-Founder & CTO'},{label:'Focus',value:'Product, Technology, Marketing'}],
+    tags:['Product','Technology','Marketing','Machine Learning','Algorithms'],
+    linkedin:'https://www.linkedin.com/in/vinayak-agrawal-b2003958/'
+  },
+  manoj: {
+    initials:'MY', name:'Manoj Kumar Yadav', role:'PnL Head — Sales',
+    gradient:'linear-gradient(135deg, #7a1800 0%, #FF7351 100%)',
+    bio:'Manoj leads Sales at myHQ with 7+ years of deep experience in real estate. He started his entrepreneurial journey by co-founding SchoolLog before pivoting into commercial real estate. At myHQ, Manoj leads the end-to-end sales function.',
+    anecdote:{text:'Manoj went from building a school management product to selling flexible workspaces at national scale. Two completely different worlds — connected by the same instinct: find a problem, then solve it relentlessly.',img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=120&h=80&fit=crop&q=80'},
+    quote:'"Real estate moves on relationships and trust. That hasn\'t changed. What\'s changed is the product — and ours is the best."',
+    facts:[{label:'Before myHQ',value:'Co-founder, SchoolLog'},{label:'Experience',value:'7+ years in Real Estate'},{label:'Role',value:'PnL Head — Sales'},{label:'Focus',value:'End-to-end enterprise sales'}],
+    tags:['Sales','Real Estate','Enterprise','Deal Structuring'],
+    linkedin:'#'
+  },
+  nitin: {
+    initials:'NA', name:'Nitin Agarwal', role:'PnL Head — Virtual Office',
+    gradient:'linear-gradient(135deg, #0d3b17 0%, #ADDFB3 100%)',
+    bio:'Nitin leads Virtual Office at myHQ — one of the platform\'s fastest-growing product lines — and is a key driver of myHQ\'s international expansion through myhqspaces.com. Before myHQ he co-founded Paavan (a spiritual wellness app) and YoloBus (intercity bus ticketing).',
+    anecdote:{text:'Nitin built Paavan and YoloBus before landing at myHQ. From spiritual journeys to intercity travel to flexible workspaces: a founder who genuinely doesn\'t fear the pivot.',img:'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=120&h=80&fit=crop&q=80'},
+    quote:'"Every company I built before myHQ taught me something different. Here, I get to use all of it."',
+    facts:[{label:'Past Ventures',value:'Paavan (wellness), YoloBus (bus ticketing)'},{label:'Role',value:'PnL Head — Virtual Office'},{label:'Also Leading',value:'International — myhqspaces.com'},{label:'Focus',value:'Virtual Office product'}],
+    tags:['Virtual Office','International','Product','Growth'],
+    linkedin:'#'
+  },
+  judhajit: {
+    initials:'JB', name:'Judhajit Bal', role:'PnL Head — Growth',
+    gradient:'linear-gradient(135deg, #1E22AA 0%, #96E6DC 100%)',
+    bio:'Judhajit heads Growth at myHQ and is leading international expansion through myhqspaces.com. He brings blue-chip corporate experience (Coca-Cola) and founder-level hustle: he co-founded Maidaan, a sports-tech venture, before taking Growth at myHQ.',
+    anecdote:{text:'Judhajit went from marketing Coca-Cola to building Maidaan, a sports-tech startup, before taking Growth at myHQ. Few leaders have navigated such different arenas with the same confidence.',img:'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=120&h=80&fit=crop&q=80'},
+    quote:'"Growth isn\'t a department — it\'s a mindset. Every team at myHQ owns a piece of it."',
+    facts:[{label:'Past Ventures',value:'Maidaan (sports-tech startup)'},{label:'Corporate',value:'Coca-Cola India'},{label:'Role',value:'PnL Head — Growth'},{label:'Also Leading',value:'International — myhqspaces.com'}],
+    tags:['Growth','International','Brand','Strategy'],
+    linkedin:'#'
+  },
+  malvika: {
+    initials:'MS', name:'Malvika Sankrityayan', role:'Marketing Head',
+    gradient:'linear-gradient(135deg, #7a4a00 0%, #FFB848 100%)',
+    bio:'Malvika leads Marketing at myHQ. She joins with 5+ years of experience in real estate marketing and a background that runs through two demanding brand environments — Accredian and S&P. NMIMS-trained, she\'s now driving brand, demand, and lifecycle marketing across the myHQ stack.',
+    anecdote:{text:'Two of the most credibility-heavy brands you can work for in marketing — S&P and Accredian — and now she\'s building the brand engine for India\'s fastest-growing CRE platform. The pattern: high-trust environments, high-stakes audiences.',img:'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=120&h=80&fit=crop&q=80'},
+    quote:'"Marketing in real estate isn\'t about flash. It\'s about earning trust at scale — and then doing it again."',
+    facts:[{label:'Before myHQ',value:'Accredian, S&P'},{label:'Education',value:'NMIMS'},{label:'Experience',value:'5+ years in Real Estate'},{label:'Role',value:'Marketing Head'}],
+    tags:['Marketing','Brand','Lifecycle','Real Estate'],
+    linkedin:'#'
+  }
+};
+
+function openModal(key) {
+  const f = team[key];
+  const header = document.getElementById('modalHeader');
+  header.style.background = f.gradient;
+  document.getElementById('modalAvatar').textContent = f.initials;
+  document.getElementById('modalAvatar').style.background = f.gradient;
+  document.getElementById('modalName').textContent = f.name;
+  document.getElementById('modalRole').textContent = f.role;
+  const factsHTML = f.facts.map(fc=>`<div class="fact-item"><div class="fact-label">${fc.label}</div><div class="fact-value">${fc.value}</div></div>`).join('');
+  const tagsHTML  = f.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('');
+  const anecHTML  = f.anecdote ? `<div class="modal-section-title">Behind the Scenes</div><div class="modal-anecdote"><img class="anecdote-img" src="${f.anecdote.img}" alt=""><div class="anecdote-text">${f.anecdote.text}</div></div>` : '';
+  const liHTML    = f.linkedin && f.linkedin!=='#' ? `<a class="modal-linkedin" href="${f.linkedin}" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>View LinkedIn</a>` : '';
+  document.getElementById('modalBody').innerHTML = `<div class="modal-section-title">About</div><div class="modal-bio">${f.bio}</div>${anecHTML}<div class="modal-section-title">Background</div><div class="modal-facts">${factsHTML}</div><div class="modal-section-title">Skills</div><div class="modal-tags">${tagsHTML}</div><div class="modal-section-title">In Their Own Words</div><div class="modal-quote">${f.quote}</div><div class="modal-section-title">Fun Fact</div><div class="modal-fun-fact"><div class="modal-fun-fact-label">Coming Soon</div><div class="modal-placeholder-fact">A fun fact about ${f.name.split(' ')[0]} will be added here shortly.</div></div>${liHTML}`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+function closeModalOnBg(e) { if (e.target===document.getElementById('modalOverlay')) closeModal(); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+// Init
+updateSpine();
+syncRailPhotos();
+window.addEventListener('resize', syncRailPhotos);
+sessionStorage.setItem('myhq_ch2_furthest','1');
+</script>
+<script src="progress.js"></script>
+</body>
+</html>
